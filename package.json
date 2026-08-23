@@ -1,13 +1,5 @@
 {
-  "name": "grow-center-bimbel",
+  "name": "grow-center",
   "version": "2.0.0",
-  "description": "Sistem Informasi Manajemen Bimbel Grow Center",
-  "main": "Index.html",
-  "scripts": {
-    "start": "echo 'Web App Ready'",
-    "build": "echo 'Static Build Ready'"
-  },
-  "keywords": ["bimbel", "management", "google-apps-script", "tailwind"],
-  "author": "Grow Center",
-  "license": "MIT"
+  "private": true
 }
