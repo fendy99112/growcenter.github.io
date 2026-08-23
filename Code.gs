@@ -17,13 +17,76 @@ const SHEETS = {
 };
 
 /**
- * HTTP GET Handler - Melayani Web App Frontend
+ * HTTP GET Handler - Melayani Web App Frontend & REST API
  */
 function doGet(e) {
-  return HtmlService.createHtmlOutputFromFile('Index')
+  if (e && e.parameter && e.parameter.action) {
+    return handleApiRequest(e.parameter.action, e.parameter.data ? JSON.parse(e.parameter.data) : null);
+  }
+
+  let html;
+  try {
+    html = HtmlService.createHtmlOutputFromFile('Index');
+  } catch (err) {
+    html = HtmlService.createHtmlOutputFromFile('index');
+  }
+
+  return html
     .setTitle('Grow Center - Sistem Informasi Manajemen Bimbel')
     .addMetaTag('viewport', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no')
     .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL);
+}
+
+/**
+ * HTTP POST Handler - Melayani Request API dari Hosting Eksternal (GitHub Pages / Vercel)
+ */
+function doPost(e) {
+  try {
+    let action = '';
+    let data = null;
+    if (e && e.postData && e.postData.contents) {
+      const parsed = JSON.parse(e.postData.contents);
+      action = parsed.action;
+      data = parsed.data;
+    } else if (e && e.parameter) {
+      action = e.parameter.action;
+      data = e.parameter.data ? JSON.parse(e.parameter.data) : null;
+    }
+    return handleApiRequest(action, data);
+  } catch (err) {
+    return ContentService.createTextOutput(JSON.stringify({ success: false, error: err.toString() }))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+}
+
+function handleApiRequest(action, data) {
+  let result = { success: false, error: 'Aksi API tidak valid' };
+  try {
+    if (action === 'getDashboardData') result = getDashboardData();
+    else if (action === 'getSiswaList') result = getSiswaList();
+    else if (action === 'saveSiswa') result = saveSiswa(data);
+    else if (action === 'deleteSiswa') result = deleteSiswa(data);
+    else if (action === 'bayarSPPSiswa') result = bayarSPPSiswa(data);
+    else if (action === 'getTentorList') result = getTentorList();
+    else if (action === 'saveTentor') result = saveTentor(data);
+    else if (action === 'deleteTentor') result = deleteTentor(data);
+    else if (action === 'getSesiList') result = getSesiList();
+    else if (action === 'saveSesi') result = saveSesi(data);
+    else if (action === 'bayarHonorTentor') result = bayarHonorTentor(data);
+    else if (action === 'deleteSesi') result = deleteSesi(data);
+    else if (action === 'getKeuanganList') result = getKeuanganList();
+    else if (action === 'saveTransaksi') result = saveTransaksi(data);
+    else if (action === 'deleteTransaksi') result = deleteTransaksi(data);
+    else if (action === 'getPengaturan') result = getPengaturan();
+    else if (action === 'savePengaturan') result = savePengaturan(data);
+    else if (action === 'getPendingNotifications') result = getPendingNotifications();
+    else if (action === 'getDatabaseInfo') result = getDatabaseInfo();
+    else if (action === 'connectCustomSpreadsheet') result = connectCustomSpreadsheet(data);
+  } catch (err) {
+    result = { success: false, error: err.toString() };
+  }
+  return ContentService.createTextOutput(JSON.stringify(result))
+    .setMimeType(ContentService.MimeType.JSON);
 }
 
 /**

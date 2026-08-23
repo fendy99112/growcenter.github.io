@@ -2125,6 +2125,7 @@
 
     function runGAS(functionName, args = null) {
       return new Promise((resolve, reject) => {
+        // 1. Lingkungan Asli Google Apps Script (script.google.com)
         if (typeof google !== 'undefined' && google.script && google.script.run) {
           let runner = google.script.run
             .withSuccessHandler(res => resolve(res))
@@ -2138,8 +2139,24 @@
           } else {
             runner[functionName]();
           }
-        } else {
-          // Mock Simulation for local preview if not in GAS environment
+        } 
+        // 2. Lingkungan Eksternal (GitHub Pages / Vercel dengan Endpoint Apps Script)
+        else if (localStorage.getItem('growcenter_gas_endpoint')) {
+          const endpoint = localStorage.getItem('growcenter_gas_endpoint');
+          const payload = { action: functionName, data: args };
+          fetch(endpoint, {
+            method: 'POST',
+            body: JSON.stringify(payload)
+          })
+          .then(res => res.json())
+          .then(res => resolve(res))
+          .catch(err => {
+            console.warn(`Fetch to GAS ${functionName} failed, falling back to local:`, err);
+            simulateLocalMockAPI(functionName, args, resolve);
+          });
+        }
+        // 3. Fallback Standalone Offline / Local Mock (Langsung berfungsi di GitHub & Vercel)
+        else {
           simulateLocalMockAPI(functionName, args, resolve);
         }
       });
