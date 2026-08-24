@@ -866,7 +866,36 @@ function getSesiList() {
   try {
     const ss = getSpreadsheet();
     const shSesi = getOrCreateSheet(ss, SHEETS.SESI, ['ID Sesi', 'ID Tentor', 'Nama Tentor', 'Tanggal', 'Kelas / Siswa', 'Mata Pelajaran', 'Durasi (Sesi)', 'Total Honor (Rp)', 'Status Bayar', 'Tanggal Bayar', 'Catatan']);
-    const data = getSheetDataAsObjects(shSesi);
+    const rawData = getSheetDataAsObjects(shSesi);
+    
+    const data = rawData.map(s => {
+      let jam = s['Waktu / Jam'] || '14:00 - 15:30 WIB';
+      let tipe = s['Tipe Sesi'] || 'Offline di Bimbel';
+      let materi = s['Materi Detail'] || s['Mata Pelajaran'] || '';
+      let evaluasi = s['Evaluasi Siswa'] || '';
+
+      const cat = String(s['Catatan'] || '');
+      const jamMatch = cat.match(/\[Jam:\s*([^\]]+)\]/i);
+      if (jamMatch && jamMatch[1]) jam = jamMatch[1].trim();
+
+      const tipeMatch = cat.match(/\[(Offline di Bimbel|Privat Guru ke Rumah|Online via Zoom\/Meet)\]/i);
+      if (tipeMatch && tipeMatch[1]) tipe = tipeMatch[1].trim();
+
+      const materiMatch = cat.match(/Materi:\s*([^.]+)/i);
+      if (materiMatch && materiMatch[1]) materi = materiMatch[1].trim();
+
+      const evalMatch = cat.match(/Evaluasi:\s*(.+)$/i);
+      if (evalMatch && evalMatch[1]) evaluasi = evalMatch[1].trim();
+
+      return {
+        ...s,
+        'Waktu / Jam': jam,
+        'Tipe Sesi': tipe,
+        'Materi Detail': materi,
+        'Evaluasi Siswa': evaluasi
+      };
+    });
+
     return { success: true, data: data };
   } catch (e) {
     return { success: false, error: e.toString() };
@@ -909,6 +938,17 @@ function saveSesi(form) {
     }
     const id = (form.id || ('SES-' + String(maxNum + 1).padStart(3, '0'))).trim();
 
+    // Susun catatan komprehensif memuat jam, metode, materi dan evaluasi
+    let formattedCatatan = form.catatan || '';
+    if (!formattedCatatan && (form.jam || form.tipe_sesi || form.materi_detail || form.evaluasi)) {
+      const parts = [];
+      if (form.jam) parts.push(`[Jam: ${form.jam}]`);
+      if (form.tipe_sesi) parts.push(`[${form.tipe_sesi}]`);
+      if (form.materi_detail) parts.push(`Materi: ${form.materi_detail}.`);
+      if (form.evaluasi) parts.push(`Evaluasi: ${form.evaluasi}`);
+      formattedCatatan = parts.join(' ');
+    }
+
     const rowData = [
       id,
       form.id_tentor || '',
@@ -920,7 +960,7 @@ function saveSesi(form) {
       totalHonor,
       form.status_bayar || 'Belum Dibayar',
       form.status_bayar === 'Lunas' ? (form.tanggal || Utilities.formatDate(new Date(), 'GMT+7', 'yyyy-MM-dd')) : '',
-      form.catatan || ''
+      formattedCatatan
     ];
 
     if (form.id) {
@@ -1048,7 +1088,21 @@ function getKeuanganList() {
   try {
     const ss = getSpreadsheet();
     const shKeu = getOrCreateSheet(ss, SHEETS.KEUANGAN, ['ID Transaksi', 'Tanggal', 'Tipe', 'Kategori', 'Deskripsi', 'Jumlah (Rp)', 'Metode Pembayaran', 'Referensi / Nama', 'Dicatat Oleh']);
-    const data = getSheetDataAsObjects(shKeu);
+    const rawData = getSheetDataAsObjects(shKeu);
+    
+    const data = rawData.map(k => {
+      let jam = k['Waktu / Jam'] || '09:00 WIB';
+      const desk = String(k['Deskripsi'] || '');
+      const jamMatch = desk.match(/^\[([0-9:]+\s*(?:WIB|WITA|WIT)?)\]/i);
+      if (jamMatch && jamMatch[1]) {
+        jam = jamMatch[1].trim();
+      }
+      return {
+        ...k,
+        'Waktu / Jam': jam
+      };
+    });
+
     return { success: true, data: data };
   } catch (e) {
     return { success: false, error: e.toString() };
@@ -1085,12 +1139,17 @@ function saveTransaksi(form) {
       id = 'TRX-' + String(maxNum + 1).padStart(3, '0');
     }
 
+    let deskripsi = form.deskripsi || '';
+    if (form.jam && !deskripsi.startsWith('[')) {
+      deskripsi = `[${form.jam}] ${deskripsi}`;
+    }
+
     const rowData = [
       id,
       form.tanggal || Utilities.formatDate(new Date(), 'GMT+7', 'yyyy-MM-dd'),
       form.tipe || 'Pemasukan',
       form.kategori || 'Lainnya',
-      form.deskripsi || '',
+      deskripsi,
       Number(form.jumlah) || 0,
       form.metode || 'Transfer',
       form.referensi || '',

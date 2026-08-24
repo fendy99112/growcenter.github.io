@@ -176,29 +176,100 @@
 <body class="bg-slate-50 text-slate-800 antialiased flex h-screen overflow-hidden" data-stroke-style="glass">
 
   <!-- ========================================== -->
+  <!-- 1-CLICK INITIAL LOGIN GATEWAY SCREEN       -->
+  <!-- ========================================== -->
+  <div id="login-gate-screen" class="fixed inset-0 z-[100] bg-gradient-to-br from-slate-950 via-slate-900 to-indigo-950 flex items-center justify-center p-4 overflow-y-auto transition-all duration-500">
+    <div class="relative w-full max-w-md bg-slate-900/90 backdrop-blur-2xl border border-slate-800/80 rounded-3xl p-6 sm:p-8 shadow-2xl shadow-indigo-950/80 space-y-6 text-center animate-in fade-in zoom-in-95 duration-300">
+      
+      <!-- Ambient Glow Decor -->
+      <div class="absolute -top-24 -left-24 w-48 h-48 bg-brand-500/20 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="absolute -bottom-24 -right-24 w-48 h-48 bg-purple-500/20 rounded-full blur-3xl pointer-events-none"></div>
+
+      <!-- Prominent Official Logo Box -->
+      <div class="relative">
+        <div class="w-28 h-28 sm:w-32 sm:h-32 mx-auto bg-white rounded-3xl p-3.5 shadow-2xl shadow-indigo-500/25 border-2 border-indigo-500/30 flex items-center justify-center overflow-hidden hover:scale-105 transition-all duration-300 group">
+          <img src="logo.png" alt="Grow Center Logo" class="w-full h-full object-contain group-hover:scale-110 transition-transform duration-300 filter drop-shadow-sm">
+        </div>
+        <div class="absolute -bottom-2.5 left-1/2 -translate-x-1/2 bg-gradient-to-r from-amber-500 to-orange-500 text-white text-[10px] font-black uppercase tracking-widest px-3 py-0.5 rounded-full shadow-md">
+          Grow Center
+        </div>
+      </div>
+
+      <!-- Welcome Title & Subtitle -->
+      <div class="space-y-1.5 pt-1">
+        <h2 class="text-xl sm:text-2xl font-black text-white tracking-tight">Portal Manajemen Bimbel</h2>
+        <p class="text-xs text-indigo-300 font-semibold uppercase tracking-wider">Solusi Belajar Berprestasi & Menyenangkan</p>
+        <p class="text-xs text-slate-400 max-w-xs mx-auto leading-relaxed pt-1">
+          Sistem administrasi terpadu untuk pencatatan keuangan harian, database siswa, dan honorarium sesi tentor.
+        </p>
+      </div>
+
+      <!-- Quick Role Selector (1-Click Ready) -->
+      <div class="space-y-2 text-left">
+        <label class="block text-[11px] font-bold uppercase tracking-wider text-slate-400">Pilih Akses Masuk:</label>
+        <div class="grid grid-cols-3 gap-2" id="login-role-selector">
+          <button type="button" onclick="selectLoginRole('admin')" id="role-btn-admin" class="login-role-btn p-2.5 rounded-2xl border-2 border-brand-500 bg-brand-500/10 text-white text-center transition flex flex-col items-center gap-1 shadow-sm">
+            <i class="fa-solid fa-user-shield text-brand-400 text-base"></i>
+            <span class="text-[11px] font-bold leading-tight">Admin</span>
+          </button>
+          <button type="button" onclick="selectLoginRole('staff')" id="role-btn-staff" class="login-role-btn p-2.5 rounded-2xl border border-slate-800 bg-slate-800/40 text-slate-400 hover:text-slate-200 text-center transition flex flex-col items-center gap-1">
+            <i class="fa-solid fa-user-tie text-slate-400 text-base"></i>
+            <span class="text-[11px] font-bold leading-tight">Staff Kasir</span>
+          </button>
+          <button type="button" onclick="selectLoginRole('tentor')" id="role-btn-tentor" class="login-role-btn p-2.5 rounded-2xl border border-slate-800 bg-slate-800/40 text-slate-400 hover:text-slate-200 text-center transition flex flex-col items-center gap-1">
+            <i class="fa-solid fa-chalkboard-user text-slate-400 text-base"></i>
+            <span class="text-[11px] font-bold leading-tight">Tentor</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- 1-Click Login Button -->
+      <div class="space-y-3 pt-1">
+        <button type="button" onclick="handleQuickLogin()" id="btn-quick-login" class="w-full py-3.5 px-6 rounded-2xl bg-gradient-to-r from-brand-600 via-indigo-600 to-purple-600 hover:from-brand-500 hover:to-purple-500 active:scale-95 text-white font-extrabold text-sm shadow-xl shadow-indigo-600/30 hover:shadow-indigo-600/50 transition-all flex items-center justify-center gap-2.5 group">
+          <i class="fa-solid fa-bolt-lightning text-amber-300 group-hover:scale-125 transition"></i>
+          <span id="login-button-label">Masuk ke Aplikasi (1-Klik)</span>
+          <i class="fa-solid fa-arrow-right text-xs group-hover:translate-x-1 transition"></i>
+        </button>
+
+        <div class="flex items-center justify-between text-[11px] text-slate-400 px-1">
+          <label class="flex items-center gap-1.5 cursor-pointer select-none">
+            <input type="checkbox" id="login-remember-me" checked class="rounded text-brand-600 focus:ring-brand-500 bg-slate-800 border-slate-700">
+            <span>Ingat sesi masuk</span>
+          </label>
+          <span class="flex items-center gap-1 text-emerald-400 font-semibold">
+            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> Siap Digunakan
+          </span>
+        </div>
+      </div>
+
+      <!-- Footer Info -->
+      <div class="pt-2 border-t border-slate-800/80 text-[10px] text-slate-500 flex items-center justify-between">
+        <span>Grow Center v2.5</span>
+        <span>Google Sheets Sync Ready</span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ========================================== -->
   <!-- SIDEBAR NAVIGATION (MUNCUL / HILANG VIA GARIS 3) -->
   <!-- ========================================== -->
   <aside id="sidebar" class="fixed inset-y-0 left-0 z-50 w-72 max-w-[85vw] bg-slate-900 text-slate-200 transition-all duration-300 ease-in-out -translate-x-full flex flex-col shadow-2xl border-r border-slate-800/80">
     
-    <!-- Logo & Brand Header -->
-    <div class="h-20 flex items-center justify-between px-5 bg-slate-950/80 backdrop-blur-md border-b border-slate-800/80">
-      <div class="flex items-center gap-3">
-        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-600 via-indigo-500 to-purple-500 p-0.5 shadow-lg shadow-brand-500/25 flex items-center justify-center">
-          <div class="w-full h-full bg-slate-900/60 rounded-[10px] flex items-center justify-center text-white backdrop-blur-sm">
-            <svg class="w-5 h-5 stroke-svg text-indigo-300" viewBox="0 0 24 24" stroke="currentColor">
-              <path d="M12 4L3 8.5L12 13L21 8.5L12 4Z"></path>
-              <path d="M6 10.5V16C6 17.5 8.686 19 12 19C15.314 19 18 17.5 18 16V10.5"></path>
-              <path d="M21 8.5V14.5"></path>
-            </svg>
-          </div>
+    <!-- Logo & Brand Header (Pojok Kiri Atas Presisi di Dalam Kotak) -->
+    <div class="h-20 flex items-center justify-between px-4 bg-slate-950/90 backdrop-blur-md border-b border-slate-800/80">
+      <div class="flex items-center gap-3 min-w-0">
+        <!-- Kotak Logo Resmi Presisi -->
+        <div class="w-12 h-12 rounded-2xl bg-white p-1 shadow-lg shadow-brand-500/20 border border-slate-700/60 flex items-center justify-center shrink-0 overflow-hidden group hover:scale-105 transition-transform duration-300">
+          <img src="logo.png" alt="Grow Center Logo" class="w-full h-full object-contain filter drop-shadow-sm">
         </div>
-        <div>
-          <h1 class="font-extrabold text-base text-white tracking-tight">Grow Center</h1>
-          <p class="text-[11px] text-indigo-300 font-medium tracking-wide">Bimbel Management</p>
+        <div class="truncate">
+          <h1 class="font-black text-sm text-white tracking-tight leading-tight truncate">Grow Center</h1>
+          <p class="text-[10px] text-amber-400 font-bold uppercase tracking-wider truncate">Bimbingan Belajar</p>
         </div>
       </div>
       <!-- Tombol Tutup Menu (X) -->
-      <button onclick="toggleSidebar(false)" title="Tutup Menu" class="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800/80 border border-slate-800 transition">
+      <button onclick="toggleSidebar(false)" title="Tutup Menu" class="p-2 rounded-xl text-slate-400 hover:text-white hover:bg-slate-800/80 border border-slate-800 transition shrink-0">
         <i class="fa-solid fa-xmark text-lg"></i>
       </button>
     </div>
@@ -311,17 +382,22 @@
       </div>
 
       <!-- User Profile & Status -->
-      <div class="flex items-center gap-3 px-1">
-        <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-emerald-500 to-teal-400 p-0.5 flex items-center justify-center text-white font-extrabold text-xs shadow-md shadow-emerald-500/20">
-          <div class="w-full h-full bg-slate-950/40 rounded-[10px] flex items-center justify-center">GC</div>
+      <div class="flex items-center justify-between px-1">
+        <div class="flex items-center gap-2.5 min-w-0">
+          <div class="w-9 h-9 rounded-xl bg-white p-0.5 border border-slate-700/80 flex items-center justify-center shrink-0 shadow-md">
+            <img src="logo.png" alt="Logo" class="w-full h-full object-contain">
+          </div>
+          <div class="overflow-hidden min-w-0">
+            <p id="sidebar-user-role" class="text-xs font-bold text-white truncate">Administrator</p>
+            <p class="text-[10px] text-emerald-400 flex items-center gap-1 font-semibold truncate">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+              Sistem Aktif
+            </p>
+          </div>
         </div>
-        <div class="overflow-hidden min-w-0">
-          <p class="text-xs font-bold text-white truncate">Administrator</p>
-          <p class="text-[11px] text-emerald-400 flex items-center gap-1.5 font-semibold truncate">
-            <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-            Online System
-          </p>
-        </div>
+        <button onclick="handleLogout()" title="Keluar / Ganti Akun" class="p-1.5 rounded-lg bg-slate-800 hover:bg-rose-600/20 text-slate-400 hover:text-rose-400 border border-slate-700 transition text-xs shrink-0">
+          <i class="fa-solid fa-arrow-right-from-bracket"></i>
+        </button>
       </div>
 
     </div>
@@ -347,10 +423,15 @@
           </svg>
           <span class="text-xs font-bold hidden md:inline text-slate-700 group-hover:text-brand-600">Menu</span>
         </button>
+
+        <!-- Logo Icon Presisi di Header Bar -->
+        <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-white p-1 border border-slate-200 shadow-sm flex items-center justify-center shrink-0 overflow-hidden">
+          <img src="logo.png" alt="Grow Center Logo" class="w-full h-full object-contain">
+        </div>
         
         <div class="truncate">
-          <h2 id="page-title" class="text-base sm:text-xl font-bold text-slate-800 tracking-tight truncate">Dashboard Overview</h2>
-          <p id="page-subtitle" class="text-[11px] sm:text-xs text-slate-500 hidden sm:block truncate">Ringkasan operasional dan keuangan Grow Center</p>
+          <h2 id="page-title" class="text-base sm:text-lg font-extrabold text-slate-800 tracking-tight truncate">Dashboard Overview</h2>
+          <p id="page-subtitle" class="text-[11px] text-slate-500 hidden sm:block truncate">Ringkasan operasional dan keuangan Grow Center</p>
         </div>
       </div>
 
@@ -384,6 +465,12 @@
         <button onclick="openModal('modal-sesi-baru')" class="hidden md:inline-flex items-center gap-2 px-3.5 py-2.5 bg-brand-600 hover:bg-brand-700 text-white rounded-xl text-xs font-bold shadow-md shadow-brand-600/20 transition">
           <i class="fa-solid fa-plus"></i>
           Catat Sesi
+        </button>
+
+        <!-- Tombol Keluar / Ganti Akun -->
+        <button onclick="handleLogout()" title="Keluar / Ganti Akun" class="p-2 sm:p-2.5 rounded-xl bg-rose-50 text-rose-600 hover:bg-rose-600 hover:text-white border border-rose-200 transition text-xs sm:text-sm shadow-sm flex items-center gap-1.5 font-bold">
+          <i class="fa-solid fa-arrow-right-from-bracket"></i>
+          <span class="hidden md:inline">Keluar</span>
         </button>
       </div>
     </header>
@@ -618,17 +705,24 @@
       </section>
 
       <!-- ================================================================= -->
-      <!-- TAB 2: PENCATATAN KEUANGAN                                        -->
+      <!-- TAB 2: PENCATATAN KEUANGAN (METODE HARIAN & BUKU KAS)             -->
       <!-- ================================================================= -->
       <section id="tab-keuangan" class="tab-content space-y-6 hidden">
         
         <!-- Header & Action Controls -->
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm">
           <div>
-            <h3 class="font-bold text-lg text-slate-800">Buku Kas & Arus Keuangan</h3>
-            <p class="text-xs text-slate-500">Pencatatan terperinci seluruh pemasukan dan pengeluaran bimbel</p>
+            <h3 class="font-bold text-lg text-slate-800 flex items-center gap-2">
+              <i class="fa-solid fa-wallet text-emerald-600"></i>
+              Buku Kas & Pencatatan Keuangan Harian
+            </h3>
+            <p class="text-xs text-slate-500">Pencatatan terperinci arus kas masuk, pengeluaran operasional, dan jurnal harian bimbel</p>
           </div>
           <div class="flex flex-wrap items-center gap-2">
+            <button onclick="openModalRekapHarian()" class="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-900 text-white text-xs font-bold flex items-center gap-2 shadow-sm transition">
+              <i class="fa-solid fa-print text-amber-400"></i>
+              Cetak Rekap Harian
+            </button>
             <button onclick="exportKeuanganToCSV()" class="px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold flex items-center gap-2 transition">
               <i class="fa-solid fa-file-excel text-emerald-600"></i>
               Ekspor CSV
@@ -640,67 +734,131 @@
           </div>
         </div>
 
-        <!-- Filter Bar -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 bg-white p-4 rounded-2xl border border-slate-200/80 shadow-sm">
-          <div>
-            <label class="block text-xs font-semibold text-slate-500 mb-1">Cari Keterangan / Referensi</label>
-            <div class="relative">
-              <i class="fa-solid fa-search absolute left-3 top-2.5 text-slate-400 text-xs"></i>
-              <input type="text" id="filter-keuangan-search" oninput="applyFilterKeuangan()" placeholder="Cari..." class="w-full pl-8 pr-3 py-1.5 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500">
+        <!-- Daily & Period Filter Bar -->
+        <div class="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-sm space-y-3">
+          
+          <!-- Preset Filter Buttons (Harian, Kemarin, Bulan Ini, Semua) -->
+          <div class="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-slate-100">
+            <div class="flex flex-wrap items-center gap-1.5">
+              <span class="text-xs font-bold text-slate-500 mr-1 flex items-center gap-1">
+                <i class="fa-regular fa-calendar-check text-brand-600"></i> Preset Waktu:
+              </span>
+              <button type="button" onclick="setKeuanganDatePreset('today')" id="btn-keu-preset-today" class="keu-preset-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-brand-50 text-brand-700 border border-brand-200 hover:bg-brand-100 transition">
+                📅 Hari Ini
+              </button>
+              <button type="button" onclick="setKeuanganDatePreset('yesterday')" id="btn-keu-preset-yesterday" class="keu-preset-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-100 text-slate-600 hover:bg-slate-200 transition">
+                Kemarin
+              </button>
+              <button type="button" onclick="setKeuanganDatePreset('this_month')" id="btn-keu-preset-this_month" class="keu-preset-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-100 text-slate-600 hover:bg-slate-200 transition">
+                Bulan Ini
+              </button>
+              <button type="button" onclick="setKeuanganDatePreset('all')" id="btn-keu-preset-all" class="keu-preset-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-100 text-slate-600 hover:bg-slate-200 transition">
+                Semua Riwayat
+              </button>
+            </div>
+            <div class="text-xs text-slate-400 font-semibold" id="keu-filter-active-label">
+              Menampilkan data: <span class="font-bold text-slate-700">Semua Riwayat</span>
             </div>
           </div>
-          <div>
-            <label class="block text-xs font-semibold text-slate-500 mb-1">Tipe Transaksi</label>
-            <select id="filter-keuangan-tipe" onchange="applyFilterKeuangan()" class="w-full px-3 py-1.5 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500">
-              <option value="">Semua Tipe</option>
-              <option value="Pemasukan">Pemasukan</option>
-              <option value="Pengeluaran">Pengeluaran</option>
-            </select>
-          </div>
-          <div>
-            <label class="block text-xs font-semibold text-slate-500 mb-1">Kategori</label>
-            <select id="filter-keuangan-kategori" onchange="applyFilterKeuangan()" class="w-full px-3 py-1.5 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500">
-              <option value="">Semua Kategori</option>
-              <option value="SPP Siswa">SPP Siswa</option>
-              <option value="Pendaftaran">Pendaftaran</option>
-              <option value="Honor Tentor">Honor Tentor</option>
-              <option value="Operasional & Listrik">Operasional & Listrik</option>
-              <option value="ATK & Modul">ATK & Modul</option>
-              <option value="Lainnya">Lainnya</option>
-            </select>
-          </div>
-          <div class="flex items-end">
-            <button onclick="resetFilterKeuangan()" class="w-full py-1.5 rounded-xl border border-slate-200 text-slate-600 hover:bg-slate-100 text-xs font-semibold">Reset Filter</button>
+
+          <!-- Form Filters -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
+            <div>
+              <label class="block text-xs font-semibold text-slate-500 mb-1">Filter Tanggal Spesifik</label>
+              <input type="date" id="filter-keuangan-tanggal" onchange="applyFilterKeuangan()" class="w-full px-3 py-1.5 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500">
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-500 mb-1">Cari Keterangan / Referensi</label>
+              <div class="relative">
+                <i class="fa-solid fa-search absolute left-3 top-2.5 text-slate-400 text-xs"></i>
+                <input type="text" id="filter-keuangan-search" oninput="applyFilterKeuangan()" placeholder="Cari keterangan / no..." class="w-full pl-8 pr-3 py-1.5 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500">
+              </div>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-500 mb-1">Tipe Transaksi</label>
+              <select id="filter-keuangan-tipe" onchange="applyFilterKeuangan()" class="w-full px-3 py-1.5 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500">
+                <option value="">Semua Tipe</option>
+                <option value="Pemasukan">Pemasukan (+)</option>
+                <option value="Pengeluaran">Pengeluaran (-)</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-500 mb-1">Kategori</label>
+              <select id="filter-keuangan-kategori" onchange="applyFilterKeuangan()" class="w-full px-3 py-1.5 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500">
+                <option value="">Semua Kategori</option>
+                <option value="SPP Siswa">SPP Siswa</option>
+                <option value="Pendaftaran">Pendaftaran</option>
+                <option value="Honor Tentor">Honor Tentor</option>
+                <option value="Operasional & Listrik">Operasional & Listrik</option>
+                <option value="ATK & Modul">ATK & Modul</option>
+                <option value="Lainnya">Lainnya</option>
+              </select>
+            </div>
           </div>
         </div>
 
-        <!-- Financial Summary Mini Cards -->
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <!-- Financial Summary Mini Cards (Daily / Filtered Snapshot) -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           <div class="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-900">
-            <p class="text-xs font-semibold text-emerald-700 uppercase">Total Pemasukan</p>
+            <div class="flex justify-between items-center">
+              <p class="text-xs font-bold text-emerald-700 uppercase tracking-wider">Total Pemasukan</p>
+              <i class="fa-solid fa-arrow-trend-up text-emerald-600 text-sm"></i>
+            </div>
             <p id="keu-total-pemasukan" class="text-xl font-extrabold mt-1">Rp 0</p>
+            <p id="keu-count-pemasukan" class="text-[11px] text-emerald-600 font-semibold mt-0.5">0 Transaksi Kas Masuk</p>
           </div>
+          
           <div class="p-4 rounded-2xl bg-rose-50 border border-rose-200 text-rose-900">
-            <p class="text-xs font-semibold text-rose-700 uppercase">Total Pengeluaran</p>
+            <div class="flex justify-between items-center">
+              <p class="text-xs font-bold text-rose-700 uppercase tracking-wider">Total Pengeluaran</p>
+              <i class="fa-solid fa-arrow-trend-down text-rose-600 text-sm"></i>
+            </div>
             <p id="keu-total-pengeluaran" class="text-xl font-extrabold mt-1">Rp 0</p>
+            <p id="keu-count-pengeluaran" class="text-[11px] text-rose-600 font-semibold mt-0.5">0 Transaksi Pengeluaran</p>
           </div>
+
           <div class="p-4 rounded-2xl bg-indigo-50 border border-indigo-200 text-indigo-900">
-            <p class="text-xs font-semibold text-indigo-700 uppercase">Saldo Kas Bersih</p>
+            <div class="flex justify-between items-center">
+              <p class="text-xs font-bold text-indigo-700 uppercase tracking-wider">Saldo Kas Bersih</p>
+              <i class="fa-solid fa-scale-balanced text-indigo-600 text-sm"></i>
+            </div>
             <p id="keu-saldo-bersih" class="text-xl font-extrabold mt-1">Rp 0</p>
+            <p id="keu-status-saldo" class="text-[11px] text-indigo-600 font-semibold mt-0.5">Arus Kas Seimbang</p>
+          </div>
+
+          <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 text-slate-800">
+            <div class="flex justify-between items-center">
+              <p class="text-xs font-bold text-slate-500 uppercase tracking-wider">Aktivitas Terfilter</p>
+              <i class="fa-solid fa-receipt text-slate-500 text-sm"></i>
+            </div>
+            <p id="keu-total-trx-count" class="text-xl font-extrabold mt-1">0 Transaksi</p>
+            <p id="keu-summary-date-text" class="text-[11px] text-slate-500 font-semibold mt-0.5">Semua Tanggal</p>
           </div>
         </div>
 
-        <!-- Transactions Table -->
+        <!-- Transactions Table (Daily Journal Ledger) -->
         <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden">
+          <div class="p-4 border-b border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-2 bg-slate-50/50">
+            <h4 class="font-bold text-sm text-slate-800 flex items-center gap-2">
+              <i class="fa-solid fa-list-check text-brand-600"></i>
+              Daftar Jurnal Transaksi Keuangan
+            </h4>
+            <div class="flex items-center gap-2">
+              <button onclick="resetFilterKeuangan()" class="text-xs text-slate-500 hover:text-slate-800 font-semibold transition">
+                <i class="fa-solid fa-rotate-left mr-1"></i> Reset Filter
+              </button>
+            </div>
+          </div>
+
           <div class="overflow-x-auto custom-scrollbar w-full">
-            <table class="w-full min-w-[760px] text-left text-sm">
+            <table class="w-full min-w-[780px] text-left text-sm">
               <thead class="bg-slate-50 text-slate-600 text-xs uppercase font-bold tracking-wider border-b border-slate-200 whitespace-nowrap">
                 <tr>
                   <th class="py-3.5 px-4">ID Transaksi</th>
-                  <th class="py-3.5 px-4">Tanggal</th>
+                  <th class="py-3.5 px-4">Tanggal & Jam</th>
                   <th class="py-3.5 px-4">Tipe</th>
                   <th class="py-3.5 px-4">Kategori</th>
-                  <th class="py-3.5 px-4">Keterangan</th>
+                  <th class="py-3.5 px-4">Keterangan / Referensi</th>
                   <th class="py-3.5 px-4">Metode</th>
                   <th class="py-3.5 px-4 text-right">Jumlah</th>
                   <th class="py-3.5 px-4 text-center">Aksi</th>
@@ -829,15 +987,18 @@
       </section>
 
       <!-- ================================================================= -->
-      <!-- TAB 5: SESI & PEMBAYARAN HONOR TENTOR                             -->
+      <!-- TAB 5: SESI & PEMBAYARAN HONOR TENTOR (METODE HARIAN & DETAIL)    -->
       <!-- ================================================================= -->
       <section id="tab-pembayaran-tentor" class="tab-content space-y-6 hidden">
         
         <!-- Header & Action Controls -->
         <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-5 rounded-2xl border border-slate-200/80 shadow-sm">
           <div>
-            <h3 class="font-bold text-lg text-slate-800">Sesi Mengajar & Pembayaran Honor Tentor</h3>
-            <p class="text-xs text-slate-500">Pencatatan jam mengajar, kalkulasi honor, dan proses penggajian tentor</p>
+            <h3 class="font-bold text-lg text-slate-800 flex items-center gap-2">
+              <i class="fa-solid fa-calendar-check text-purple-600"></i>
+              Sesi Mengajar & Honorarium Tentor Harian
+            </h3>
+            <p class="text-xs text-slate-500">Pencatatan jam mengajar, metode belajar, materi pembelajaran, dan slip gaji tentor</p>
           </div>
           <div class="flex flex-wrap items-center gap-2">
             <button onclick="openModal('modal-sesi-baru')" class="px-4 py-2 rounded-xl bg-brand-600 hover:bg-brand-700 text-white text-xs font-bold flex items-center gap-2 shadow-md shadow-brand-600/20 transition">
@@ -847,41 +1008,118 @@
           </div>
         </div>
 
-        <!-- Filter Bar -->
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 bg-white p-4 rounded-2xl border border-slate-200/80 shadow-sm">
-          <div>
-            <label class="block text-xs font-semibold text-slate-500 mb-1">Cari Tentor / Kelas</label>
-            <div class="relative">
-              <i class="fa-solid fa-search absolute left-3 top-2.5 text-slate-400 text-xs"></i>
-              <input type="text" id="filter-sesi-search" oninput="applyFilterSesi()" placeholder="Cari..." class="w-full pl-8 pr-3 py-1.5 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500">
+        <!-- Daily Filter Bar for Sessions -->
+        <div class="bg-white p-4 rounded-2xl border border-slate-200/80 shadow-sm space-y-3">
+          
+          <!-- Presets -->
+          <div class="flex flex-wrap items-center justify-between gap-2 pb-3 border-b border-slate-100">
+            <div class="flex flex-wrap items-center gap-1.5">
+              <span class="text-xs font-bold text-slate-500 mr-1 flex items-center gap-1">
+                <i class="fa-regular fa-calendar text-purple-600"></i> Preset Sesi:
+              </span>
+              <button type="button" onclick="setSesiDatePreset('today')" id="btn-sesi-preset-today" class="sesi-preset-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-100 text-slate-600 hover:bg-slate-200 transition">
+                📅 Sesi Hari Ini
+              </button>
+              <button type="button" onclick="setSesiDatePreset('this_month')" id="btn-sesi-preset-this_month" class="sesi-preset-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-100 text-slate-600 hover:bg-slate-200 transition">
+                Bulan Ini
+              </button>
+              <button type="button" onclick="setSesiDatePreset('pending')" id="btn-sesi-preset-pending" class="sesi-preset-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-purple-50 text-purple-700 border border-purple-200 hover:bg-purple-100 transition">
+                ⏳ Belum Dibayar
+              </button>
+              <button type="button" onclick="setSesiDatePreset('all')" id="btn-sesi-preset-all" class="sesi-preset-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-100 text-slate-600 hover:bg-slate-200 transition">
+                Semua Sesi
+              </button>
+            </div>
+            <div class="text-xs text-slate-400 font-semibold" id="sesi-filter-active-label">
+              Status filter: <span class="font-bold text-purple-700">Belum Dibayar (Pending Payout)</span>
             </div>
           </div>
-          <div>
-            <label class="block text-xs font-semibold text-slate-500 mb-1">Status Pembayaran</label>
-            <select id="filter-sesi-status" onchange="applyFilterSesi()" class="w-full px-3 py-1.5 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500">
-              <option value="">Semua Sesi</option>
-              <option value="Belum Dibayar" selected>Belum Dibayar (Pending Payout)</option>
-              <option value="Lunas">Lunas (Sudah Dibayar)</option>
-            </select>
-          </div>
-          <div class="flex items-end">
-            <div class="p-2.5 rounded-xl bg-purple-50 border border-purple-200 text-purple-900 w-full flex items-center justify-between">
-              <span class="text-xs font-semibold">Total Honor Pending:</span>
-              <span id="sesi-total-honor-pending" class="text-sm font-extrabold">Rp 0</span>
+
+          <!-- Form Filters -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
+            <div>
+              <label class="block text-xs font-semibold text-slate-500 mb-1">Filter Tanggal Spesifik</label>
+              <input type="date" id="filter-sesi-tanggal" onchange="applyFilterSesi()" class="w-full px-3 py-1.5 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500">
             </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-500 mb-1">Cari Tentor / Siswa / Materi</label>
+              <div class="relative">
+                <i class="fa-solid fa-search absolute left-3 top-2.5 text-slate-400 text-xs"></i>
+                <input type="text" id="filter-sesi-search" oninput="applyFilterSesi()" placeholder="Cari nama / topik..." class="w-full pl-8 pr-3 py-1.5 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500">
+              </div>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-500 mb-1">Metode / Tipe Sesi</label>
+              <select id="filter-sesi-tipe" onchange="applyFilterSesi()" class="w-full px-3 py-1.5 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500">
+                <option value="">Semua Metode Sesi</option>
+                <option value="Offline di Bimbel">Offline di Bimbel</option>
+                <option value="Privat Guru ke Rumah">Privat Guru ke Rumah</option>
+                <option value="Online via Zoom/Meet">Online via Zoom/Meet</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-500 mb-1">Status Pembayaran</label>
+              <select id="filter-sesi-status" onchange="applyFilterSesi()" class="w-full px-3 py-1.5 text-xs rounded-xl border border-slate-200 focus:outline-none focus:ring-2 focus:ring-brand-500">
+                <option value="">Semua Status Bayar</option>
+                <option value="Belum Dibayar" selected>Belum Dibayar (Pending Payout)</option>
+                <option value="Lunas">Lunas (Sudah Dibayar)</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sessions Summary Mini Cards -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div class="p-4 rounded-2xl bg-purple-50 border border-purple-200 text-purple-900">
+            <div class="flex justify-between items-center">
+              <p class="text-xs font-bold text-purple-700 uppercase tracking-wider">Aktivitas Mengajar</p>
+              <i class="fa-solid fa-chalkboard-user text-purple-600 text-sm"></i>
+            </div>
+            <p id="sesi-total-count" class="text-xl font-extrabold mt-1">0 Sesi</p>
+            <p id="sesi-total-durasi" class="text-[11px] text-purple-600 font-semibold mt-0.5">0 Jam Akumulasi Mengajar</p>
+          </div>
+          
+          <div class="p-4 rounded-2xl bg-indigo-50 border border-indigo-200 text-indigo-900">
+            <div class="flex justify-between items-center">
+              <p class="text-xs font-bold text-indigo-700 uppercase tracking-wider">Total Honor Terhitung</p>
+              <i class="fa-solid fa-coins text-indigo-600 text-sm"></i>
+            </div>
+            <p id="sesi-total-honor-all" class="text-xl font-extrabold mt-1">Rp 0</p>
+            <p id="sesi-honor-lunas-text" class="text-[11px] text-emerald-600 font-semibold mt-0.5">Lunas: Rp 0</p>
+          </div>
+
+          <div class="p-4 rounded-2xl bg-rose-50 border border-rose-200 text-rose-900">
+            <div class="flex justify-between items-center">
+              <p class="text-xs font-bold text-rose-700 uppercase tracking-wider">Honor Tertunda (Pending)</p>
+              <i class="fa-solid fa-hand-holding-dollar text-rose-600 text-sm"></i>
+            </div>
+            <p id="sesi-total-honor-pending" class="text-xl font-extrabold mt-1">Rp 0</p>
+            <p id="sesi-pending-count-badge" class="text-[11px] text-rose-600 font-semibold mt-0.5">0 Sesi Siap Dicairkan</p>
           </div>
         </div>
 
         <!-- Sessions Table -->
         <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden">
+          <div class="p-4 border-b border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-2 bg-slate-50/50">
+            <h4 class="font-bold text-sm text-slate-800 flex items-center gap-2">
+              <i class="fa-solid fa-book-open-reader text-purple-600"></i>
+              Jurnal Sesi Mengajar & Catatan Pembelajaran Harian
+            </h4>
+            <div class="flex items-center gap-2">
+              <button onclick="resetFilterSesi()" class="text-xs text-slate-500 hover:text-slate-800 font-semibold transition">
+                <i class="fa-solid fa-rotate-left mr-1"></i> Reset Filter
+              </button>
+            </div>
+          </div>
+
           <div class="overflow-x-auto custom-scrollbar w-full">
-            <table class="w-full min-w-[780px] text-left text-sm">
+            <table class="w-full min-w-[840px] text-left text-sm">
               <thead class="bg-slate-50 text-slate-600 text-xs uppercase font-bold tracking-wider border-b border-slate-200 whitespace-nowrap">
                 <tr>
-                  <th class="py-3.5 px-4">ID Sesi & Tanggal</th>
-                  <th class="py-3.5 px-4">Nama Tentor</th>
-                  <th class="py-3.5 px-4">Kelas / Murid</th>
-                  <th class="py-3.5 px-4">Mata Pelajaran</th>
+                  <th class="py-3.5 px-4">ID Sesi & Waktu</th>
+                  <th class="py-3.5 px-4">Tentor & Metode</th>
+                  <th class="py-3.5 px-4">Murid & Kelas</th>
+                  <th class="py-3.5 px-4">Materi & Topik Belajar</th>
                   <th class="py-3.5 px-4 text-center">Durasi</th>
                   <th class="py-3.5 px-4 text-right">Total Honor</th>
                   <th class="py-3.5 px-4 text-center">Status Bayar</th>
@@ -1569,84 +1807,210 @@
     </div>
   </div>
 
-  <!-- 4. MODAL: CATAT SESI MENGAJAR -->
+  <!-- 4. MODAL: CATAT SESI MENGAJAR (LENGKAP & DETAIL HARIAN) -->
   <div id="modal-sesi-baru" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
-    <div class="bg-white rounded-2xl max-w-lg w-full p-6 shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto custom-scrollbar">
+    <div class="bg-white rounded-3xl max-w-xl w-full p-6 sm:p-7 shadow-2xl space-y-4 max-h-[92vh] overflow-y-auto custom-scrollbar animate-in fade-in duration-200">
       <div class="flex items-center justify-between border-b border-slate-100 pb-3">
-        <h4 class="font-bold text-slate-800 text-base">Catat Sesi Mengajar Tentor</h4>
-        <button onclick="closeModal('modal-sesi-baru')" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-lg"></i></button>
+        <div class="flex items-center gap-2.5">
+          <div class="w-9 h-9 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center font-bold">
+            <i class="fa-solid fa-calendar-plus"></i>
+          </div>
+          <div>
+            <h4 class="font-bold text-slate-800 text-base">Catat Sesi Mengajar Tentor</h4>
+            <p class="text-[11px] text-slate-400">Pencatatan rincian waktu, metode kelas, dan materi pembelajaran</p>
+          </div>
+        </div>
+        <button onclick="closeModal('modal-sesi-baru')" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-800 flex items-center justify-center transition">
+          <i class="fa-solid fa-xmark text-sm"></i>
+        </button>
       </div>
-      <form id="form-sesi" onsubmit="handleSaveSesi(event)" class="space-y-3.5">
+
+      <form id="form-sesi" onsubmit="handleSaveSesi(event)" class="space-y-3.5 text-xs">
+        <input type="hidden" id="sesi-id">
+        
         <div>
-          <label class="block text-xs font-bold text-slate-700 mb-1">Pilih Tentor *</label>
-          <select id="sesi-select-tentor" onchange="autoCalculateHonorSesi()" required class="w-full px-3.5 py-2 text-sm rounded-xl border border-slate-200 focus:ring-2 focus:ring-brand-500 focus:outline-none">
+          <label class="block font-bold text-slate-700 mb-1">Pilih Tentor Pengajar *</label>
+          <select id="sesi-select-tentor" onchange="autoCalculateHonorSesi()" required class="w-full px-3.5 py-2 text-xs rounded-xl border border-slate-200 focus:ring-2 focus:ring-brand-500 focus:outline-none">
             <option value="">-- Pilih Tentor --</option>
           </select>
         </div>
-        <div class="grid grid-cols-2 gap-3">
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
           <div>
-            <label class="block text-xs font-bold text-slate-700 mb-1">Tanggal *</label>
-            <input type="date" id="sesi-tanggal" required class="w-full px-3.5 py-2 text-sm rounded-xl border border-slate-200 focus:ring-2 focus:ring-brand-500 focus:outline-none">
+            <label class="block font-bold text-slate-700 mb-1">Tanggal Sesi *</label>
+            <input type="date" id="sesi-tanggal" required class="w-full px-3 py-2 rounded-xl border border-slate-200 focus:ring-2 focus:ring-brand-500 focus:outline-none">
           </div>
           <div>
-            <label class="block text-xs font-bold text-slate-700 mb-1">Durasi (Sesi) *</label>
-            <input type="number" step="0.5" id="sesi-durasi" value="1" min="0.5" oninput="autoCalculateHonorSesi()" required class="w-full px-3.5 py-2 text-sm rounded-xl border border-slate-200 focus:ring-2 focus:ring-brand-500 focus:outline-none">
-          </div>
-        </div>
-        <div class="grid grid-cols-2 gap-3">
-          <div>
-            <label class="block text-xs font-bold text-slate-700 mb-1">Kelas / Murid *</label>
-            <input type="text" id="sesi-kelas" placeholder="Contoh: 12 SMA IPA (Ananda)" required class="w-full px-3.5 py-2 text-sm rounded-xl border border-slate-200 focus:ring-2 focus:ring-brand-500 focus:outline-none">
+            <label class="block font-bold text-slate-700 mb-1">Waktu / Jam Sesi *</label>
+            <input type="text" id="sesi-jam" placeholder="14:00 - 15:30 WIB" required class="w-full px-3 py-2 rounded-xl border border-slate-200 focus:ring-2 focus:ring-brand-500 focus:outline-none">
           </div>
           <div>
-            <label class="block text-xs font-bold text-slate-700 mb-1">Mata Pelajaran *</label>
-            <input type="text" id="sesi-mapel" placeholder="Contoh: Fisika Dinamika" required class="w-full px-3.5 py-2 text-sm rounded-xl border border-slate-200 focus:ring-2 focus:ring-brand-500 focus:outline-none">
+            <label class="block font-bold text-slate-700 mb-1">Durasi Sesi *</label>
+            <input type="number" step="0.5" id="sesi-durasi" value="1" min="0.5" oninput="autoCalculateHonorSesi()" required class="w-full px-3 py-2 rounded-xl border border-slate-200 focus:ring-2 focus:ring-brand-500 focus:outline-none">
           </div>
         </div>
-        <div class="grid grid-cols-2 gap-3">
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <div>
-            <label class="block text-xs font-bold text-slate-700 mb-1">Total Honor Dihitung (Rp)</label>
-            <input type="number" id="sesi-total-honor" required class="w-full px-3.5 py-2 text-sm rounded-xl border border-slate-200 bg-slate-50 font-bold focus:ring-2 focus:ring-brand-500 focus:outline-none">
+            <label class="block font-bold text-slate-700 mb-1">Metode / Tipe Sesi *</label>
+            <select id="sesi-tipe" class="w-full px-3 py-2 rounded-xl border border-slate-200 focus:ring-2 focus:ring-brand-500 focus:outline-none">
+              <option value="Offline di Bimbel">🏫 Offline di Bimbel</option>
+              <option value="Privat Guru ke Rumah">🏠 Privat Guru ke Rumah</option>
+              <option value="Online via Zoom/Meet">💻 Online via Zoom/Meet</option>
+            </select>
           </div>
           <div>
-            <label class="block text-xs font-bold text-slate-700 mb-1">Status Bayar</label>
-            <select id="sesi-status-bayar" class="w-full px-3.5 py-2 text-sm rounded-xl border border-slate-200 focus:ring-2 focus:ring-brand-500 focus:outline-none">
-              <option value="Belum Dibayar">Belum Dibayar</option>
-              <option value="Lunas">Lunas (Sudah Dibayar)</option>
+            <label class="block font-bold text-slate-700 mb-1">Kelas & Nama Murid *</label>
+            <input type="text" id="sesi-kelas" placeholder="Contoh: 12 SMA IPA (Ananda Pratama)" required class="w-full px-3 py-2 rounded-xl border border-slate-200 focus:ring-2 focus:ring-brand-500 focus:outline-none">
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Mata Pelajaran *</label>
+          <input type="text" id="sesi-mapel" placeholder="Contoh: Matematika Saintek / Fisika" required class="w-full px-3.5 py-2 rounded-xl border border-slate-200 focus:ring-2 focus:ring-brand-500 focus:outline-none">
+        </div>
+
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Topik / Materi Pembelajaran yang Diajarkan *</label>
+          <input type="text" id="sesi-materi-detail" placeholder="Contoh: Limit Fungsi Aljabar & Pembahasan Soal UTBK SNBT" required class="w-full px-3.5 py-2 rounded-xl border border-slate-200 focus:ring-2 focus:ring-brand-500 focus:outline-none">
+        </div>
+
+        <div>
+          <label class="block font-bold text-slate-700 mb-1">Catatan Evaluasi Pemahaman Siswa & Absensi</label>
+          <textarea id="sesi-evaluasi" rows="2" placeholder="Contoh: Siswa aktif, mampu menyelesaikan 8 dari 10 soal, tugas bab matriks tuntas." class="w-full p-2.5 rounded-xl border border-slate-200 focus:ring-2 focus:ring-brand-500 focus:outline-none custom-scrollbar"></textarea>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">Total Honor Terhitung (Rp) *</label>
+            <input type="number" id="sesi-total-honor" required class="w-full px-3.5 py-2 rounded-xl border border-slate-200 bg-slate-50 font-extrabold text-slate-800 focus:ring-2 focus:ring-brand-500 focus:outline-none">
+          </div>
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">Status Pembayaran</label>
+            <select id="sesi-status-bayar" class="w-full px-3.5 py-2 rounded-xl border border-slate-200 focus:ring-2 focus:ring-brand-500 focus:outline-none">
+              <option value="Belum Dibayar">⏳ Belum Dibayar</option>
+              <option value="Lunas">✅ Lunas (Sudah Dibayar)</option>
             </select>
           </div>
         </div>
-        <div>
-          <label class="block text-xs font-bold text-slate-700 mb-1">Catatan Tambahan</label>
-          <input type="text" id="sesi-catatan" placeholder="Materi tambahan, laporan mengajar, dll." class="w-full px-3.5 py-2 text-sm rounded-xl border border-slate-200 focus:ring-2 focus:ring-brand-500 focus:outline-none">
-        </div>
-        <div class="flex justify-end gap-3 pt-3 border-t border-slate-100">
-          <button type="button" onclick="closeModal('modal-sesi-baru')" class="px-4 py-2 text-xs font-semibold rounded-xl text-slate-600 hover:bg-slate-100">Batal</button>
-          <button type="submit" class="px-5 py-2 text-xs font-bold rounded-xl bg-brand-600 hover:bg-brand-700 text-white shadow-md">Simpan Sesi</button>
+
+        <div class="flex justify-end gap-2.5 pt-3 border-t border-slate-100">
+          <button type="button" onclick="closeModal('modal-sesi-baru')" class="px-4 py-2 font-semibold rounded-xl text-slate-600 hover:bg-slate-100">Batal</button>
+          <button type="submit" class="px-5 py-2 font-bold rounded-xl bg-purple-600 hover:bg-purple-700 text-white shadow-md shadow-purple-600/30 transition">
+            Simpan Sesi Mengajar
+          </button>
         </div>
       </form>
     </div>
   </div>
 
-  <!-- 5. MODAL: CATAT TRANSAKSI KAS UMUM -->
-  <div id="modal-transaksi-baru" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
-    <div class="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl space-y-4">
+  <!-- 4.1 MODAL: DETAIL SESI MENGAJAR LENGKAP (POP-UP KARTU SESI) -->
+  <div id="modal-detail-sesi" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-7 shadow-2xl space-y-4 max-h-[92vh] overflow-y-auto custom-scrollbar animate-in fade-in duration-200">
       <div class="flex items-center justify-between border-b border-slate-100 pb-3">
-        <h4 class="font-bold text-slate-800 text-base">Tambah Transaksi Kas</h4>
-        <button onclick="closeModal('modal-transaksi-baru')" class="text-slate-400 hover:text-slate-600"><i class="fa-solid fa-xmark text-lg"></i></button>
+        <div class="flex items-center gap-3">
+          <div class="w-10 h-10 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center font-bold">
+            <i class="fa-solid fa-chalkboard-user"></i>
+          </div>
+          <div>
+            <h4 class="font-bold text-slate-800 text-base" id="detail-sesi-mapel">Mata Pelajaran</h4>
+            <span class="text-xs font-mono text-slate-400" id="detail-sesi-id">SES-000</span>
+          </div>
+        </div>
+        <button onclick="closeModal('modal-detail-sesi')" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-800 flex items-center justify-center transition">
+          <i class="fa-solid fa-xmark text-sm"></i>
+        </button>
       </div>
-      <form id="form-transaksi" onsubmit="handleSaveTransaksi(event)" class="space-y-3.5">
+
+      <div class="space-y-3 text-xs">
+        <!-- Badge Status Bayar & Tipe Kelas -->
+        <div class="flex items-center justify-between">
+          <span id="detail-sesi-tipe-badge" class="px-2.5 py-1 rounded-lg text-xs font-bold bg-purple-50 text-purple-700 border border-purple-200">🏫 Offline di Bimbel</span>
+          <span id="detail-sesi-status-badge" class="px-2.5 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-800">⏳ Belum Dibayar</span>
+        </div>
+
+        <!-- Info Tentor & Siswa -->
+        <div class="p-3.5 rounded-2xl bg-slate-50 space-y-2 border border-slate-100">
+          <div class="flex justify-between">
+            <span class="text-slate-500 font-semibold">Tentor Pengajar:</span>
+            <span id="detail-sesi-tentor" class="font-bold text-slate-800">-</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-slate-500 font-semibold">Siswa & Kelas:</span>
+            <span id="detail-sesi-siswa" class="font-bold text-slate-800">-</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-slate-500 font-semibold">Tanggal & Waktu:</span>
+            <span id="detail-sesi-waktu" class="font-bold text-indigo-700">-</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-slate-500 font-semibold">Durasi Sesi:</span>
+            <span id="detail-sesi-durasi" class="font-semibold text-slate-800">1 Sesi</span>
+          </div>
+        </div>
+
+        <!-- Materi Pembelajaran -->
+        <div class="p-3.5 rounded-2xl bg-indigo-50/50 border border-indigo-100 space-y-1.5">
+          <p class="text-[11px] font-bold text-indigo-800 uppercase tracking-wider flex items-center gap-1.5">
+            <i class="fa-solid fa-book-bookmark text-indigo-600"></i> Topik & Materi yang Diajarkan:
+          </p>
+          <p id="detail-sesi-materi" class="text-xs font-semibold text-slate-800 bg-white p-2.5 rounded-xl border border-indigo-100/80 leading-relaxed">-</p>
+        </div>
+
+        <!-- Catatan Evaluasi & Absensi Siswa -->
+        <div class="p-3.5 rounded-2xl bg-slate-50 border border-slate-200 space-y-1.5">
+          <p class="text-[11px] font-bold text-slate-600 uppercase tracking-wider flex items-center gap-1.5">
+            <i class="fa-solid fa-clipboard-check text-slate-500"></i> Evaluasi Pemahaman & Kehadiran:
+          </p>
+          <p id="detail-sesi-evaluasi" class="text-xs text-slate-700 bg-white p-2.5 rounded-xl border border-slate-200 leading-relaxed">-</p>
+        </div>
+
+        <!-- Honor -->
+        <div class="p-3.5 rounded-2xl bg-purple-50 border border-purple-200 flex justify-between items-center text-purple-900">
+          <div>
+            <span class="text-xs font-bold uppercase tracking-wider text-purple-700">Honor Sesi Ini:</span>
+            <p id="detail-sesi-tgl-bayar" class="text-[10px] text-purple-600 mt-0.5">Belum dicairkan</p>
+          </div>
+          <span id="detail-sesi-honor" class="text-lg font-black text-purple-800">Rp 0</span>
+        </div>
+      </div>
+
+      <div id="detail-sesi-actions" class="grid grid-cols-2 gap-2 pt-2 border-t border-slate-100">
+        <!-- Injected via JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. MODAL: CATAT TRANSAKSI KAS HARIAN -->
+  <div id="modal-transaksi-baru" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-7 shadow-2xl space-y-4 max-h-[92vh] overflow-y-auto custom-scrollbar animate-in fade-in duration-200">
+      <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+        <div class="flex items-center gap-2.5">
+          <div class="w-9 h-9 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold">
+            <i class="fa-solid fa-wallet"></i>
+          </div>
+          <div>
+            <h4 class="font-bold text-slate-800 text-base">Tambah Transaksi Kas Harian</h4>
+            <p class="text-[11px] text-slate-400">Pencatatan kas masuk / pengeluaran operasional dengan jam transaksi</p>
+          </div>
+        </div>
+        <button onclick="closeModal('modal-transaksi-baru')" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-800 flex items-center justify-center transition">
+          <i class="fa-solid fa-xmark text-sm"></i>
+        </button>
+      </div>
+
+      <form id="form-transaksi" onsubmit="handleSaveTransaksi(event)" class="space-y-3.5 text-xs">
         <div class="grid grid-cols-2 gap-3">
           <div>
-            <label class="block text-xs font-bold text-slate-700 mb-1">Tipe Transaksi *</label>
-            <select id="trx-tipe" required class="w-full px-3.5 py-2 text-sm rounded-xl border border-slate-200 focus:ring-2 focus:ring-brand-500 focus:outline-none">
+            <label class="block font-bold text-slate-700 mb-1">Tipe Transaksi *</label>
+            <select id="trx-tipe" required class="w-full px-3.5 py-2 rounded-xl border border-slate-200 focus:ring-2 focus:ring-brand-500 focus:outline-none">
               <option value="Pemasukan">Pemasukan (+)</option>
               <option value="Pengeluaran">Pengeluaran (-)</option>
             </select>
           </div>
           <div>
-            <label class="block text-xs font-bold text-slate-700 mb-1">Kategori *</label>
-            <select id="trx-kategori" required class="w-full px-3.5 py-2 text-sm rounded-xl border border-slate-200 focus:ring-2 focus:ring-brand-500 focus:outline-none">
+            <label class="block font-bold text-slate-700 mb-1">Kategori *</label>
+            <select id="trx-kategori" required class="w-full px-3.5 py-2 rounded-xl border border-slate-200 focus:ring-2 focus:ring-brand-500 focus:outline-none">
               <option value="SPP Siswa">SPP Siswa</option>
               <option value="Pendaftaran">Pendaftaran</option>
               <option value="Honor Tentor">Honor Tentor</option>
@@ -1656,40 +2020,166 @@
             </select>
           </div>
         </div>
+
         <div>
-          <label class="block text-xs font-bold text-slate-700 mb-1">Deskripsi / Keterangan *</label>
-          <input type="text" id="trx-deskripsi" required placeholder="Contoh: Beli modul atau bayar wifi" class="w-full px-3.5 py-2 text-sm rounded-xl border border-slate-200 focus:ring-2 focus:ring-brand-500 focus:outline-none">
+          <label class="block font-bold text-slate-700 mb-1">Deskripsi / Keterangan Transaksi *</label>
+          <input type="text" id="trx-deskripsi" required placeholder="Contoh: Pembayaran SPP atau Beli modul belajar" class="w-full px-3.5 py-2 rounded-xl border border-slate-200 focus:ring-2 focus:ring-brand-500 focus:outline-none">
         </div>
-        <div class="grid grid-cols-2 gap-3">
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
           <div>
-            <label class="block text-xs font-bold text-slate-700 mb-1">Jumlah (Rp) *</label>
-            <input type="number" id="trx-jumlah" required class="w-full px-3.5 py-2 text-sm rounded-xl border border-slate-200 focus:ring-2 focus:ring-brand-500 focus:outline-none">
+            <label class="block font-bold text-slate-700 mb-1">Tanggal *</label>
+            <input type="date" id="trx-tanggal" required class="w-full px-3 py-2 rounded-xl border border-slate-200 focus:ring-2 focus:ring-brand-500 focus:outline-none">
           </div>
           <div>
-            <label class="block text-xs font-bold text-slate-700 mb-1">Metode</label>
-            <select id="trx-metode" class="w-full px-3.5 py-2 text-sm rounded-xl border border-slate-200 focus:ring-2 focus:ring-brand-500 focus:outline-none">
+            <label class="block font-bold text-slate-700 mb-1">Jam Transaksi *</label>
+            <input type="time" id="trx-jam" class="w-full px-3 py-2 rounded-xl border border-slate-200 focus:ring-2 focus:ring-brand-500 focus:outline-none">
+          </div>
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">Jumlah (Rp) *</label>
+            <input type="number" id="trx-jumlah" required placeholder="500000" class="w-full px-3 py-2 rounded-xl border border-slate-200 font-bold focus:ring-2 focus:ring-brand-500 focus:outline-none">
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-3">
+          <div>
+            <label class="block font-bold text-slate-700 mb-1">Metode Pembayaran</label>
+            <select id="trx-metode" class="w-full px-3.5 py-2 rounded-xl border border-slate-200 focus:ring-2 focus:ring-brand-500 focus:outline-none">
               <option value="Transfer BCA">Transfer BCA</option>
               <option value="Transfer Mandiri">Transfer Mandiri</option>
-              <option value="Tunai">Tunai / Cash</option>
+              <option value="Tunai / Cash">Tunai / Cash</option>
               <option value="QRIS">QRIS</option>
             </select>
           </div>
-        </div>
-        <div class="grid grid-cols-2 gap-3">
           <div>
-            <label class="block text-xs font-bold text-slate-700 mb-1">Tanggal</label>
-            <input type="date" id="trx-tanggal" class="w-full px-3.5 py-2 text-sm rounded-xl border border-slate-200 focus:ring-2 focus:ring-brand-500 focus:outline-none">
-          </div>
-          <div>
-            <label class="block text-xs font-bold text-slate-700 mb-1">Referensi / Atas Nama</label>
-            <input type="text" id="trx-referensi" placeholder="Nama siswa/tentor/vendor" class="w-full px-3.5 py-2 text-sm rounded-xl border border-slate-200 focus:ring-2 focus:ring-brand-500 focus:outline-none">
+            <label class="block font-bold text-slate-700 mb-1">Referensi / Atas Nama</label>
+            <input type="text" id="trx-referensi" placeholder="Nama siswa/tentor/vendor" class="w-full px-3.5 py-2 rounded-xl border border-slate-200 focus:ring-2 focus:ring-brand-500 focus:outline-none">
           </div>
         </div>
-        <div class="flex justify-end gap-3 pt-3 border-t border-slate-100">
-          <button type="button" onclick="closeModal('modal-transaksi-baru')" class="px-4 py-2 text-xs font-semibold rounded-xl text-slate-600 hover:bg-slate-100">Batal</button>
-          <button type="submit" class="px-5 py-2 text-xs font-bold rounded-xl bg-brand-600 hover:bg-brand-700 text-white shadow-md">Simpan Transaksi</button>
+
+        <div class="flex justify-end gap-2.5 pt-3 border-t border-slate-100">
+          <button type="button" onclick="closeModal('modal-transaksi-baru')" class="px-4 py-2 font-semibold rounded-xl text-slate-600 hover:bg-slate-100">Batal</button>
+          <button type="submit" class="px-5 py-2 font-bold rounded-xl bg-brand-600 hover:bg-brand-700 text-white shadow-md shadow-brand-600/30 transition">
+            Simpan Transaksi Kas
+          </button>
         </div>
       </form>
+    </div>
+  </div>
+
+  <!-- 5.1 MODAL: CETAK REKAP LAPORAN KEUANGAN & SESI HARIAN (PRINTABLE JURNAL) -->
+  <div id="modal-rekap-harian" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-3xl max-w-2xl w-full p-6 shadow-2xl space-y-4 max-h-[95vh] overflow-y-auto custom-scrollbar">
+      <div class="flex items-center justify-between border-b border-slate-100 pb-3 no-print">
+        <div>
+          <h4 class="font-bold text-slate-800 text-base">Rekap Laporan Keuangan & Sesi Harian</h4>
+          <p class="text-xs text-slate-500">Lembar ikhtisar kas dan sesi mengajar siap cetak / PDF</p>
+        </div>
+        <button onclick="closeModal('modal-rekap-harian')" class="w-8 h-8 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-500 hover:text-slate-800 flex items-center justify-center transition">
+          <i class="fa-solid fa-xmark text-sm"></i>
+        </button>
+      </div>
+
+      <!-- Printable Report Container -->
+      <div id="rekapPrintArea" class="p-6 border border-slate-200 rounded-2xl bg-white space-y-5 text-xs text-slate-800">
+        
+        <!-- Header Rekap -->
+        <div class="flex items-center justify-between border-b-2 border-slate-800 pb-4">
+          <div class="flex items-center gap-3">
+            <div class="w-12 h-12 rounded-xl bg-white p-1 border border-slate-300 flex items-center justify-center shrink-0">
+              <img src="logo.png" alt="Logo" class="w-full h-full object-contain">
+            </div>
+            <div>
+              <h2 class="text-lg font-black text-slate-900 tracking-tight">GROW CENTER BIMBEL</h2>
+              <p class="text-[11px] text-slate-600 font-semibold">Laporan Jurnal Kas & Sesi Mengajar Harian</p>
+              <p id="rekap-alamat-header" class="text-[10px] text-slate-400">Jl. Pendidikan Mandiri No. 88, Kota Belajar</p>
+            </div>
+          </div>
+          <div class="text-right">
+            <span class="inline-block px-3 py-1 bg-slate-900 text-white text-[11px] font-bold rounded-lg uppercase tracking-wider">Laporan Harian</span>
+            <p id="rekap-tanggal-display" class="text-xs font-bold text-slate-800 mt-1">24 Agustus 2026</p>
+          </div>
+        </div>
+
+        <!-- 3 Financial Summary Highlights -->
+        <div class="grid grid-cols-3 gap-3 text-center">
+          <div class="p-3 bg-emerald-50 rounded-xl border border-emerald-200">
+            <p class="text-[10px] font-bold uppercase text-emerald-700">Pemasukan Hari Ini</p>
+            <p id="rekap-pem-val" class="text-sm font-black text-emerald-800 mt-0.5">Rp 0</p>
+          </div>
+          <div class="p-3 bg-rose-50 rounded-xl border border-rose-200">
+            <p class="text-[10px] font-bold uppercase text-rose-700">Pengeluaran Hari Ini</p>
+            <p id="rekap-peng-val" class="text-sm font-black text-rose-800 mt-0.5">Rp 0</p>
+          </div>
+          <div class="p-3 bg-indigo-50 rounded-xl border border-indigo-200">
+            <p class="text-[10px] font-bold uppercase text-indigo-700">Saldo Kas Bersih</p>
+            <p id="rekap-saldo-val" class="text-sm font-black text-indigo-800 mt-0.5">Rp 0</p>
+          </div>
+        </div>
+
+        <!-- Transaksi Kas Table in Report -->
+        <div class="space-y-1.5">
+          <h4 class="font-extrabold text-xs uppercase tracking-wider text-slate-700 flex items-center gap-1.5">
+            <i class="fa-solid fa-list text-emerald-600"></i> Rincian Transaksi Kas Harian:
+          </h4>
+          <table class="w-full text-left text-[11px] border border-slate-200 rounded-lg overflow-hidden">
+            <thead class="bg-slate-100 text-slate-700 font-bold border-b border-slate-200">
+              <tr>
+                <th class="p-2">Waktu/No</th>
+                <th class="p-2">Tipe & Kategori</th>
+                <th class="p-2">Keterangan</th>
+                <th class="p-2 text-right">Jumlah</th>
+              </tr>
+            </thead>
+            <tbody id="rekap-transaksi-tbody" class="divide-y divide-slate-100">
+              <tr><td colspan="4" class="p-3 text-center text-slate-400">Tidak ada transaksi pada tanggal ini.</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Sesi Mengajar Table in Report -->
+        <div class="space-y-1.5 pt-2">
+          <h4 class="font-extrabold text-xs uppercase tracking-wider text-slate-700 flex items-center gap-1.5">
+            <i class="fa-solid fa-chalkboard-user text-purple-600"></i> Rincian Sesi Mengajar Harian:
+          </h4>
+          <table class="w-full text-left text-[11px] border border-slate-200 rounded-lg overflow-hidden">
+            <thead class="bg-slate-100 text-slate-700 font-bold border-b border-slate-200">
+              <tr>
+                <th class="p-2">Jam & Tentor</th>
+                <th class="p-2">Siswa & Kelas</th>
+                <th class="p-2">Materi Pembelajaran</th>
+                <th class="p-2 text-right">Honor (Rp)</th>
+              </tr>
+            </thead>
+            <tbody id="rekap-sesi-tbody" class="divide-y divide-slate-100">
+              <tr><td colspan="4" class="p-3 text-center text-slate-400">Tidak ada sesi mengajar pada tanggal ini.</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Signatures -->
+        <div class="grid grid-cols-2 gap-4 pt-6 text-center text-xs text-slate-500">
+          <div>
+            <p>Petugas Administrasi / Kasir</p>
+            <div class="h-14"></div>
+            <p class="font-bold text-slate-800 border-t border-slate-300 pt-1">( Petugas Kasir )</p>
+          </div>
+          <div>
+            <p>Kepala Operasional Bimbel</p>
+            <div class="h-14"></div>
+            <p class="font-bold text-slate-800 border-t border-slate-300 pt-1">( Manajemen Grow Center )</p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex justify-end gap-2.5 pt-2 no-print">
+        <button type="button" onclick="closeModal('modal-rekap-harian')" class="px-4 py-2 text-xs font-semibold rounded-xl text-slate-600 hover:bg-slate-100">Tutup</button>
+        <button type="button" onclick="window.print()" class="px-5 py-2 text-xs font-bold rounded-xl bg-slate-900 hover:bg-black text-white shadow-md flex items-center gap-2">
+          <i class="fa-solid fa-print text-amber-400"></i> Cetak Laporan Rekap (A4/PDF)
+        </button>
+      </div>
     </div>
   </div>
 
@@ -1705,10 +2195,15 @@
       <div id="printArea" class="p-6 border border-slate-200 rounded-xl bg-white space-y-4">
         <!-- Receipt Header -->
         <div class="flex items-center justify-between border-b-2 border-slate-800 pb-3">
-          <div>
-            <h2 class="text-xl font-extrabold text-slate-900">GROW CENTER</h2>
-            <p class="text-[11px] text-slate-500">Bimbingan Belajar & Konsultasi Prestasi</p>
-            <p id="receipt-alamat-header" class="text-[10px] text-slate-400">Jl. Pendidikan Mandiri No. 88, Kota Belajar</p>
+          <div class="flex items-center gap-3">
+            <div class="w-11 h-11 rounded-xl bg-white p-0.5 border border-slate-300 flex items-center justify-center shrink-0">
+              <img src="logo.png" alt="Logo" class="w-full h-full object-contain">
+            </div>
+            <div>
+              <h2 class="text-lg font-extrabold text-slate-900">GROW CENTER</h2>
+              <p class="text-[11px] text-slate-500">Bimbingan Belajar & Konsultasi Prestasi</p>
+              <p id="receipt-alamat-header" class="text-[10px] text-slate-400">Jl. Pendidikan Mandiri No. 88, Kota Belajar</p>
+            </div>
           </div>
           <div class="text-right">
             <span class="inline-block px-2.5 py-1 bg-emerald-100 text-emerald-800 text-xs font-black rounded-lg border border-emerald-300">LUNAS</span>
@@ -1790,20 +2285,20 @@
         { 'ID Tentor': 'TTR-005', 'Nama Lengkap': 'Kak Reza, S.E', 'Mata Pelajaran': 'Ekonomi & Akuntansi SMA', 'No WhatsApp': '081945678901', 'Honor Per Sesi (Rp)': 75000, 'Bank & No Rekening': 'BSI 7123456789 a.n Reza Pratama', 'Tanggal Bergabung': '2026-02-05', 'Status': 'Aktif' }
       ],
       sesi: [
-        { 'ID Sesi': 'SES-001', 'ID Tentor': 'TTR-001', 'Nama Tentor': 'Kak Fikri, S.Pd', 'Tanggal': '2026-08-15', 'Kelas / Siswa': '12 SMA - IPA (Ananda Pratama)', 'Mata Pelajaran': 'Matematika Saintek', 'Durasi (Sesi)': 1, 'Total Honor (Rp)': 75000, 'Status Bayar': 'Lunas', 'Tanggal Bayar': '2026-08-20', 'Catatan': 'Sesi berjalan lancar' },
-        { 'ID Sesi': 'SES-002', 'ID Tentor': 'TTR-001', 'Nama Tentor': 'Kak Fikri, S.Pd', 'Tanggal': '2026-08-18', 'Kelas / Siswa': '12 SMA - IPA (Farhan Al-Ghifari)', 'Mata Pelajaran': 'Fisika Dinamika & Gerak', 'Durasi (Sesi)': 1.5, 'Total Honor (Rp)': 112500, 'Status Bayar': 'Belum Dibayar', 'Tanggal Bayar': '', 'Catatan': 'Fokus latihan soal UTBK' },
-        { 'ID Sesi': 'SES-003', 'ID Tentor': 'TTR-002', 'Nama Tentor': 'Kak Sarah, M.Si', 'Tanggal': '2026-08-19', 'Kelas / Siswa': '9 SMP (Clarissa Putri)', 'Mata Pelajaran': 'Kimia Dasar & Biologi', 'Durasi (Sesi)': 1, 'Total Honor (Rp)': 80000, 'Status Bayar': 'Belum Dibayar', 'Tanggal Bayar': '', 'Catatan': 'Materi persiapan ujian' },
-        { 'ID Sesi': 'SES-004', 'ID Tentor': 'TTR-003', 'Nama Tentor': 'Kak Budi, S.Hum', 'Tanggal': '2026-08-21', 'Kelas / Siswa': '6 SD (Elena Syahira)', 'Mata Pelajaran': 'Bahasa Inggris Grammar & Vocab', 'Durasi (Sesi)': 1, 'Total Honor (Rp)': 70000, 'Status Bayar': 'Belum Dibayar', 'Tanggal Bayar': '', 'Catatan': 'Siswa sangat aktif' },
-        { 'ID Sesi': 'SES-005', 'ID Tentor': 'TTR-004', 'Nama Tentor': 'Kak Nisa, S.Si', 'Tanggal': '2026-08-22', 'Kelas / Siswa': '11 SMA - IPS (Dimas Satria)', 'Mata Pelajaran': 'Matematika Dasar & Aljabar', 'Durasi (Sesi)': 1, 'Total Honor (Rp)': 65000, 'Status Bayar': 'Belum Dibayar', 'Tanggal Bayar': '', 'Catatan': '' },
-        { 'ID Sesi': 'SES-006', 'ID Tentor': 'TTR-005', 'Nama Tentor': 'Kak Reza, S.E', 'Tanggal': '2026-08-22', 'Kelas / Siswa': '11 SMA - IPS (Dimas Satria)', 'Mata Pelajaran': 'Ekonomi & Akuntansi Keuangan', 'Durasi (Sesi)': 1.5, 'Total Honor (Rp)': 112500, 'Status Bayar': 'Belum Dibayar', 'Tanggal Bayar': '', 'Catatan': 'Bab Laporan Laba Rugi' }
+        { 'ID Sesi': 'SES-001', 'ID Tentor': 'TTR-001', 'Nama Tentor': 'Kak Fikri, S.Pd', 'Tanggal': '2026-08-24', 'Waktu / Jam': '13:30 - 15:00 WIB', 'Tipe Sesi': 'Offline di Bimbel', 'Kelas / Siswa': '12 SMA - IPA (Ananda Pratama)', 'Mata Pelajaran': 'Matematika Saintek', 'Materi Detail': 'Limit Fungsi Aljabar & Pembahasan Soal UTBK SNBT', 'Durasi (Sesi)': 1, 'Total Honor (Rp)': 75000, 'Status Bayar': 'Lunas', 'Tanggal Bayar': '2026-08-24', 'Catatan': 'Siswa sangat aktif, mampu menyelesaikan 8 soal latihan mandiri', 'Evaluasi Siswa': 'Pemahaman konsep dasar sangat bagus, kecepatan hitung meningkat' },
+        { 'ID Sesi': 'SES-002', 'ID Tentor': 'TTR-001', 'Nama Tentor': 'Kak Fikri, S.Pd', 'Tanggal': '2026-08-24', 'Waktu / Jam': '15:30 - 17:45 WIB', 'Tipe Sesi': 'Offline di Bimbel', 'Kelas / Siswa': '12 SMA - IPA (Farhan Al-Ghifari)', 'Mata Pelajaran': 'Fisika Dinamika & Gerak', 'Materi Detail': 'Hukum Newton II, Gesekan & Gerak Melingkar Beraturan', 'Durasi (Sesi)': 1.5, 'Total Honor (Rp)': 112500, 'Status Bayar': 'Belum Dibayar', 'Tanggal Bayar': '', 'Catatan': 'Fokus drill soal UTBK Saintek', 'Evaluasi Siswa': 'Perlu penguatan pada analisis diagram gaya bebas' },
+        { 'ID Sesi': 'SES-003', 'ID Tentor': 'TTR-002', 'Nama Tentor': 'Kak Sarah, M.Si', 'Tanggal': '2026-08-23', 'Waktu / Jam': '14:00 - 15:30 WIB', 'Tipe Sesi': 'Privat Guru ke Rumah', 'Kelas / Siswa': '9 SMP (Clarissa Putri)', 'Mata Pelajaran': 'Kimia & Biologi SMP', 'Materi Detail': 'Sistem Ekskresi Manusia & Struktur Ginjal', 'Durasi (Sesi)': 1, 'Total Honor (Rp)': 80000, 'Status Bayar': 'Belum Dibayar', 'Tanggal Bayar': '', 'Catatan': 'Materi persiapan asesmen sumatif', 'Evaluasi Siswa': 'Memahami materi dengan sangat baik, tugas rumah tuntas' },
+        { 'ID Sesi': 'SES-004', 'ID Tentor': 'TTR-003', 'Nama Tentor': 'Kak Budi, S.Hum', 'Tanggal': '2026-08-22', 'Waktu / Jam': '16:00 - 17:30 WIB', 'Tipe Sesi': 'Online via Zoom/Meet', 'Kelas / Siswa': '6 SD (Elena Syahira)', 'Mata Pelajaran': 'Bahasa Inggris Grammar & Vocab', 'Materi Detail': 'Past Continuous Tense & Story Reading Comprehension', 'Durasi (Sesi)': 1, 'Total Honor (Rp)': 70000, 'Status Bayar': 'Belum Dibayar', 'Tanggal Bayar': '', 'Catatan': 'Siswa sangat interaktif saat sesi daring', 'Evaluasi Siswa': 'Pengucapan kosakata (pronunciation) sangat baik' },
+        { 'ID Sesi': 'SES-005', 'ID Tentor': 'TTR-004', 'Nama Tentor': 'Kak Nisa, S.Si', 'Tanggal': '2026-08-22', 'Waktu / Jam': '13:00 - 14:30 WIB', 'Tipe Sesi': 'Offline di Bimbel', 'Kelas / Siswa': '11 SMA - IPS (Dimas Satria)', 'Mata Pelajaran': 'Matematika Dasar & Aljabar', 'Materi Detail': 'Program Linear & Nilai Optimum Fungsi Objektif', 'Durasi (Sesi)': 1, 'Total Honor (Rp)': 65000, 'Status Bayar': 'Belum Dibayar', 'Tanggal Bayar': '', 'Catatan': 'Latihan 5 model soal cerita', 'Evaluasi Siswa': 'Sudah bisa menentukan daerah himpunan penyelesaian' },
+        { 'ID Sesi': 'SES-006', 'ID Tentor': 'TTR-005', 'Nama Tentor': 'Kak Reza, S.E', 'Tanggal': '2026-08-21', 'Waktu / Jam': '14:30 - 16:45 WIB', 'Tipe Sesi': 'Privat Guru ke Rumah', 'Kelas / Siswa': '11 SMA - IPS (Dimas Satria)', 'Mata Pelajaran': 'Ekonomi & Akuntansi', 'Materi Detail': 'Jurnal Penyesuaian & Neraca Lajur Perusahaan Jasa', 'Durasi (Sesi)': 1.5, 'Total Honor (Rp)': 112500, 'Status Bayar': 'Belum Dibayar', 'Tanggal Bayar': '', 'Catatan': 'Praktik siklus akuntansi', 'Evaluasi Siswa': 'Ketelitian debit-kredit sudah rapi dan seimbang' }
       ],
       keuangan: [
-        { 'ID Transaksi': 'TRX-001', 'Tanggal': '2026-08-01', 'Tipe': 'Pemasukan', 'Kategori': 'SPP Siswa', 'Deskripsi': 'Pembayaran SPP Agustus - Ananda Pratama', 'Jumlah (Rp)': 450000, 'Metode Pembayaran': 'Transfer BCA', 'Referensi / Nama': 'SIS-001 (Ananda)', 'Dicatat Oleh': 'Admin' },
-        { 'ID Transaksi': 'TRX-002', 'Tanggal': '2026-08-02', 'Tipe': 'Pemasukan', 'Kategori': 'SPP Siswa', 'Deskripsi': 'Pembayaran SPP Agustus - Dimas Satria', 'Jumlah (Rp)': 400000, 'Metode Pembayaran': 'Tunai', 'Referensi / Nama': 'SIS-003 (Dimas)', 'Dicatat Oleh': 'Admin' },
-        { 'ID Transaksi': 'TRX-003', 'Tanggal': '2026-08-05', 'Tipe': 'Pengeluaran', 'Kategori': 'Operasional & Listrik', 'Deskripsi': 'Tagihan Listrik & WiFi Kantor Bimbel', 'Jumlah (Rp)': 350000, 'Metode Pembayaran': 'Transfer Mandiri', 'Referensi / Nama': 'Operasional', 'Dicatat Oleh': 'Admin' },
-        { 'ID Transaksi': 'TRX-004', 'Tanggal': '2026-08-10', 'Tipe': 'Pengeluaran', 'Kategori': 'ATK & Modul', 'Deskripsi': 'Cetak Modul Belajar Semester Ganjil', 'Jumlah (Rp)': 220000, 'Metode Pembayaran': 'Tunai', 'Referensi / Nama': 'Pengadaan', 'Dicatat Oleh': 'Admin' },
-        { 'ID Transaksi': 'TRX-005', 'Tanggal': '2026-08-12', 'Tipe': 'Pemasukan', 'Kategori': 'Pendaftaran', 'Deskripsi': 'Biaya Pendaftaran Siswa Baru - Farhan Al-Ghifari', 'Jumlah (Rp)': 150000, 'Metode Pembayaran': 'Transfer BCA', 'Referensi / Nama': 'SIS-005 (Farhan)', 'Dicatat Oleh': 'Admin' },
-        { 'ID Transaksi': 'TRX-006', 'Tanggal': '2026-08-20', 'Tipe': 'Pengeluaran', 'Kategori': 'Honor Tentor', 'Deskripsi': 'Pembayaran Honor Kak Fikri (SES-001)', 'Jumlah (Rp)': 75000, 'Metode Pembayaran': 'Transfer BCA', 'Referensi / Nama': 'TTR-001 (Fikri)', 'Dicatat Oleh': 'Admin' }
+        { 'ID Transaksi': 'TRX-001', 'Tanggal': '2026-08-24', 'Waktu / Jam': '08:30 WIB', 'Tipe': 'Pemasukan', 'Kategori': 'SPP Siswa', 'Deskripsi': 'Pembayaran SPP Agustus - Ananda Pratama', 'Jumlah (Rp)': 450000, 'Metode Pembayaran': 'Transfer BCA', 'Referensi / Nama': 'SIS-001 (Ananda)', 'Dicatat Oleh': 'Admin' },
+        { 'ID Transaksi': 'TRX-002', 'Tanggal': '2026-08-24', 'Waktu / Jam': '10:15 WIB', 'Tipe': 'Pengeluaran', 'Kategori': 'Honor Tentor', 'Deskripsi': 'Pembayaran Honor Kak Fikri (SES-001)', 'Jumlah (Rp)': 75000, 'Metode Pembayaran': 'Transfer BCA', 'Referensi / Nama': 'TTR-001 (Kak Fikri)', 'Dicatat Oleh': 'Admin' },
+        { 'ID Transaksi': 'TRX-003', 'Tanggal': '2026-08-23', 'Waktu / Jam': '11:00 WIB', 'Tipe': 'Pemasukan', 'Kategori': 'SPP Siswa', 'Deskripsi': 'Pembayaran SPP Agustus - Dimas Satria', 'Jumlah (Rp)': 400000, 'Metode Pembayaran': 'Tunai / Cash', 'Referensi / Nama': 'SIS-003 (Dimas)', 'Dicatat Oleh': 'Admin' },
+        { 'ID Transaksi': 'TRX-004', 'Tanggal': '2026-08-20', 'Waktu / Jam': '14:20 WIB', 'Tipe': 'Pengeluaran', 'Kategori': 'Operasional & Listrik', 'Deskripsi': 'Tagihan Listrik & WiFi Kantor Bimbel', 'Jumlah (Rp)': 350000, 'Metode Pembayaran': 'Transfer Mandiri', 'Referensi / Nama': 'Operasional', 'Dicatat Oleh': 'Admin' },
+        { 'ID Transaksi': 'TRX-005', 'Tanggal': '2026-08-18', 'Waktu / Jam': '15:45 WIB', 'Tipe': 'Pengeluaran', 'Kategori': 'ATK & Modul', 'Deskripsi': 'Cetak Modul Belajar Semester Ganjil', 'Jumlah (Rp)': 220000, 'Metode Pembayaran': 'Tunai / Cash', 'Referensi / Nama': 'Pengadaan', 'Dicatat Oleh': 'Admin' },
+        { 'ID Transaksi': 'TRX-006', 'Tanggal': '2026-08-15', 'Waktu / Jam': '09:00 WIB', 'Tipe': 'Pemasukan', 'Kategori': 'Pendaftaran', 'Deskripsi': 'Biaya Pendaftaran Siswa Baru - Farhan Al-Ghifari', 'Jumlah (Rp)': 150000, 'Metode Pembayaran': 'Transfer BCA', 'Referensi / Nama': 'SIS-005 (Farhan)', 'Dicatat Oleh': 'Admin' }
       ],
       pengaturan: {
         nama_bimbel: 'Grow Center',
@@ -1909,8 +2404,9 @@
         const sppBulanEl = document.getElementById('spp-bulan');
         if (sppBulanEl) sppBulanEl.value = 'SPP Bulan ' + curMonthName;
 
-        // Inisialisasi Stroke Engine
+        // Inisialisasi Stroke Engine & Auth Gateway
         initStrokeCustomizer();
+        initLoginGateway();
 
         // Render tampilan langsung (Instant zero-delay rendering)
         renderAllViews(null, null);
@@ -2096,6 +2592,134 @@
         text: 'Gaya garis stroke menu berhasil diterapkan.',
         timer: 1200,
         showConfirmButton: false
+      });
+    }
+
+    // ==========================================
+    // 1-CLICK AUTHENTICATION & LOGIN GATEWAY
+    // ==========================================
+    let CURRENT_AUTH = {
+      isLoggedIn: false,
+      role: 'admin',
+      roleLabel: 'Administrator'
+    };
+
+    function initLoginGateway() {
+      try {
+        const savedRole = localStorage.getItem('GROWCENTER_USER_ROLE') || 'admin';
+        selectLoginRole(savedRole);
+
+        const isRemembered = localStorage.getItem('GROWCENTER_LOGGED_IN') === 'true';
+        if (isRemembered) {
+          CURRENT_AUTH.isLoggedIn = true;
+          const screen = document.getElementById('login-gate-screen');
+          if (screen) {
+            screen.classList.add('hidden', 'opacity-0', 'pointer-events-none');
+          }
+        }
+      } catch (e) {}
+    }
+
+    function selectLoginRole(role) {
+      CURRENT_AUTH.role = role;
+      const roleMap = {
+        'admin': 'Administrator',
+        'staff': 'Staff Kasir / Admin',
+        'tentor': 'Tentor / Pengajar'
+      };
+      CURRENT_AUTH.roleLabel = roleMap[role] || 'Administrator';
+
+      document.querySelectorAll('.login-role-btn').forEach(b => {
+        b.className = 'login-role-btn p-2.5 rounded-2xl border border-slate-800 bg-slate-800/40 text-slate-400 hover:text-slate-200 text-center transition flex flex-col items-center gap-1';
+      });
+
+      const activeBtn = document.getElementById(`role-btn-${role}`);
+      if (activeBtn) {
+        activeBtn.className = 'login-role-btn p-2.5 rounded-2xl border-2 border-brand-500 bg-brand-500/10 text-white text-center transition flex flex-col items-center gap-1 shadow-sm';
+      }
+
+      const btnLabel = document.getElementById('login-button-label');
+      if (btnLabel) {
+        btnLabel.innerText = `Masuk sebagai ${CURRENT_AUTH.roleLabel} (1-Klik)`;
+      }
+
+      const sideRole = document.getElementById('sidebar-user-role');
+      if (sideRole) {
+        sideRole.innerText = CURRENT_AUTH.roleLabel;
+      }
+    }
+
+    function handleQuickLogin() {
+      const btn = document.getElementById('btn-quick-login');
+      const remember = document.getElementById('login-remember-me') ? document.getElementById('login-remember-me').checked : true;
+
+      if (btn) {
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin text-base"></i> <span>Membuka Portal Sistem...</span>';
+      }
+
+      setTimeout(() => {
+        CURRENT_AUTH.isLoggedIn = true;
+        if (remember) {
+          try {
+            localStorage.setItem('GROWCENTER_LOGGED_IN', 'true');
+            localStorage.setItem('GROWCENTER_USER_ROLE', CURRENT_AUTH.role);
+          } catch(e) {}
+        }
+
+        const roleBadge = document.getElementById('sidebar-user-role');
+        if (roleBadge) roleBadge.innerText = CURRENT_AUTH.roleLabel;
+
+        const screen = document.getElementById('login-gate-screen');
+        if (screen) {
+          screen.classList.add('opacity-0', 'scale-95', 'pointer-events-none');
+          setTimeout(() => {
+            screen.classList.add('hidden');
+          }, 350);
+        }
+
+        if (btn) {
+          btn.disabled = false;
+          btn.innerHTML = `<i class="fa-solid fa-bolt-lightning text-amber-300"></i> <span>Masuk ke Aplikasi (1-Klik)</span> <i class="fa-solid fa-arrow-right text-xs"></i>`;
+        }
+
+        // Welcome Toast
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 2000,
+          timerProgressBar: true
+        });
+        Toast.fire({
+          icon: 'success',
+          title: `Selamat datang di Grow Center! (${CURRENT_AUTH.roleLabel})`
+        });
+      }, 300);
+    }
+
+    function handleLogout() {
+      Swal.fire({
+        title: 'Keluar dari Sistem?',
+        text: 'Anda akan kembali ke halaman akses login awal Grow Center.',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonColor: '#4f46e5',
+        cancelButtonColor: '#64748b',
+        confirmButtonText: 'Ya, Keluar',
+        cancelButtonText: 'Batal'
+      }).then(result => {
+        if (result.isConfirmed) {
+          try {
+            localStorage.removeItem('GROWCENTER_LOGGED_IN');
+          } catch(e) {}
+          CURRENT_AUTH.isLoggedIn = false;
+          const screen = document.getElementById('login-gate-screen');
+          if (screen) {
+            screen.classList.remove('hidden', 'opacity-0', 'scale-95', 'pointer-events-none');
+            screen.classList.add('opacity-100', 'scale-100');
+          }
+        }
       });
     }
 
@@ -2778,58 +3402,170 @@
     }
 
     // ==========================================
-    // RENDER SESI & HONOR
+    // RENDER SESI & METODE HARIAN DETAIL
     // ==========================================
+    let currentSesiPreset = 'pending';
+
+    function setSesiDatePreset(preset) {
+      currentSesiPreset = preset;
+      const todayStr = new Date().toISOString().split('T')[0];
+      const curMonthStr = todayStr.substring(0, 7);
+
+      document.querySelectorAll('.sesi-preset-btn').forEach(btn => {
+        btn.className = 'sesi-preset-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-100 text-slate-600 hover:bg-slate-200 transition';
+      });
+
+      const activeBtn = document.getElementById(`btn-sesi-preset-${preset}`);
+      if (activeBtn) {
+        activeBtn.className = 'sesi-preset-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-purple-50 text-purple-700 border border-purple-200 hover:bg-purple-100 transition';
+      }
+
+      const dateInput = document.getElementById('filter-sesi-tanggal');
+      const statusInput = document.getElementById('filter-sesi-status');
+      const label = document.getElementById('sesi-filter-active-label');
+
+      if (preset === 'today') {
+        if (dateInput) dateInput.value = todayStr;
+        if (statusInput) statusInput.value = '';
+        if (label) label.innerHTML = `Status filter: <span class="font-bold text-purple-700">Sesi Hari Ini (${todayStr})</span>`;
+      } else if (preset === 'this_month') {
+        if (dateInput) dateInput.value = '';
+        if (statusInput) statusInput.value = '';
+        if (label) label.innerHTML = `Status filter: <span class="font-bold text-purple-700">Sesi Bulan Ini (${curMonthStr})</span>`;
+      } else if (preset === 'pending') {
+        if (dateInput) dateInput.value = '';
+        if (statusInput) statusInput.value = 'Belum Dibayar';
+        if (label) label.innerHTML = `Status filter: <span class="font-bold text-purple-700">Belum Dibayar (Pending Payout)</span>`;
+      } else if (preset === 'all') {
+        if (dateInput) dateInput.value = '';
+        if (statusInput) statusInput.value = '';
+        if (label) label.innerHTML = `Status filter: <span class="font-bold text-slate-700">Semua Sesi Mengajar</span>`;
+      }
+
+      applyFilterSesi();
+    }
+
     function renderSesiTable() {
       const search = (document.getElementById('filter-sesi-search').value || '').toLowerCase();
       const filterStatus = document.getElementById('filter-sesi-status').value;
+      const filterTipe = document.getElementById('filter-sesi-tipe').value;
+      const filterTanggal = document.getElementById('filter-sesi-tanggal').value;
+      const todayStr = new Date().toISOString().split('T')[0];
+      const curMonthStr = todayStr.substring(0, 7);
 
+      let totalCount = 0;
+      let totalDurasi = 0;
+      let totalHonorAll = 0;
+      let totalHonorLunas = 0;
       let totalPending = 0;
+      let countPending = 0;
+
       const filtered = APP_STATE.sesi.filter(s => {
-        const matchSearch = (s['Nama Tentor'] || '').toLowerCase().includes(search) || (s['Kelas / Siswa'] || '').toLowerCase().includes(search);
-        const matchStatus = !filterStatus || s['Status Bayar'] === filterStatus;
-        if (s['Status Bayar'] === 'Belum Dibayar') {
-          totalPending += Number(s['Total Honor (Rp)']) || 0;
+        const tgl = (s['Tanggal'] || '');
+        const matchSearch = (s['Nama Tentor'] || '').toLowerCase().includes(search) || 
+                            (s['Kelas / Siswa'] || '').toLowerCase().includes(search) ||
+                            (s['Mata Pelajaran'] || '').toLowerCase().includes(search) ||
+                            (s['Materi Detail'] || s['Catatan'] || '').toLowerCase().includes(search);
+        
+        let matchDate = true;
+        if (filterTanggal) {
+          matchDate = (tgl === filterTanggal);
+        } else if (currentSesiPreset === 'this_month') {
+          matchDate = tgl.startsWith(curMonthStr);
         }
-        return matchSearch && matchStatus;
+
+        const matchStatus = !filterStatus || s['Status Bayar'] === filterStatus;
+        const matchTipe = !filterTipe || (s['Tipe Sesi'] === filterTipe);
+
+        const honor = Number(s['Total Honor (Rp)']) || 0;
+        const dur = Number(s['Durasi (Sesi)']) || 1;
+
+        if (matchSearch && matchDate && matchStatus && matchTipe) {
+          totalCount++;
+          totalDurasi += dur;
+          totalHonorAll += honor;
+          if (s['Status Bayar'] === 'Lunas') {
+            totalHonorLunas += honor;
+          } else {
+            totalPending += honor;
+            countPending++;
+          }
+          return true;
+        }
+        return false;
       });
 
-      document.getElementById('sesi-total-honor-pending').innerText = 'Rp ' + totalPending.toLocaleString('id-ID');
+      // Update Summary Cards
+      const countEl = document.getElementById('sesi-total-count');
+      const durasiEl = document.getElementById('sesi-total-durasi');
+      const honorAllEl = document.getElementById('sesi-total-honor-all');
+      const honorLunasEl = document.getElementById('sesi-honor-lunas-text');
+      const honorPendingEl = document.getElementById('sesi-total-honor-pending');
+      const pendingBadgeEl = document.getElementById('sesi-pending-count-badge');
+
+      if (countEl) countEl.innerText = `${totalCount} Sesi`;
+      if (durasiEl) durasiEl.innerText = `${totalDurasi} Jam Akumulasi Mengajar`;
+      if (honorAllEl) honorAllEl.innerText = 'Rp ' + totalHonorAll.toLocaleString('id-ID');
+      if (honorLunasEl) honorLunasEl.innerText = `Lunas: Rp ${totalHonorLunas.toLocaleString('id-ID')}`;
+      if (honorPendingEl) honorPendingEl.innerText = 'Rp ' + totalPending.toLocaleString('id-ID');
+      if (pendingBadgeEl) pendingBadgeEl.innerText = `${countPending} Sesi Siap Dicairkan`;
 
       const tbody = document.getElementById('sesi-table-body');
       if (filtered.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="8" class="py-8 text-center text-slate-400">Tidak ada data sesi mengajar yang cocok.</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="8" class="py-8 text-center text-slate-400">Tidak ada data sesi mengajar yang cocok dengan filter.</td></tr>';
         return;
       }
 
       tbody.innerHTML = filtered.map(s => {
         const isLunas = s['Status Bayar'] === 'Lunas';
+        const jam = s['Waktu / Jam'] || '14:00 - 15:30 WIB';
+        const tipe = s['Tipe Sesi'] || 'Offline di Bimbel';
+        const materi = s['Materi Detail'] || s['Topik / Materi'] || s['Catatan'] || 'Latihan dan pembahasan materi reguler';
+        
+        let tipeBadgeColor = 'bg-purple-50 text-purple-700 border-purple-200';
+        if (tipe.includes('Rumah')) tipeBadgeColor = 'bg-amber-50 text-amber-700 border-amber-200';
+        else if (tipe.includes('Online')) tipeBadgeColor = 'bg-sky-50 text-sky-700 border-sky-200';
+
         return `
-          <tr class="hover:bg-slate-50 transition cursor-pointer group" onclick="if(!event.target.closest('button')) handleRowClickSesi('${s['ID Sesi']}');">
+          <tr class="hover:bg-slate-50 transition cursor-pointer group" onclick="if(!event.target.closest('button')) showDetailSesi('${s['ID Sesi']}');">
             <td class="py-3.5 px-4">
-              <span class="text-xs font-mono text-slate-400 block">${s['ID Sesi']}</span>
-              <span class="font-semibold text-slate-700 text-xs">${s['Tanggal']}</span>
+              <span class="text-xs font-mono text-slate-400 block font-bold group-hover:text-purple-600 transition">${s['ID Sesi']}</span>
+              <span class="font-bold text-slate-800 text-xs block">${s['Tanggal']}</span>
+              <span class="text-[11px] text-indigo-600 font-semibold flex items-center gap-1 mt-0.5">
+                <i class="fa-regular fa-clock text-[10px]"></i> ${jam}
+              </span>
             </td>
-            <td class="py-3.5 px-4 font-bold text-slate-800 text-xs group-hover:text-purple-600 transition">${s['Nama Tentor']}</td>
-            <td class="py-3.5 px-4 text-xs text-slate-600">${s['Kelas / Siswa'] || '-'}</td>
-            <td class="py-3.5 px-4 text-xs text-slate-500">${s['Mata Pelajaran'] || '-'}</td>
-            <td class="py-3.5 px-4 text-xs font-bold text-slate-700 text-center">${s['Durasi (Sesi)']} Sesi</td>
-            <td class="py-3.5 px-4 text-xs font-bold text-slate-800 text-right">
+            <td class="py-3.5 px-4">
+              <span class="font-bold text-slate-800 text-xs block">${s['Nama Tentor']}</span>
+              <span class="inline-block mt-1 text-[10px] px-2 py-0.5 rounded-md font-bold border ${tipeBadgeColor}">
+                ${tipe}
+              </span>
+            </td>
+            <td class="py-3.5 px-4 text-xs font-semibold text-slate-700">${s['Kelas / Siswa'] || '-'}</td>
+            <td class="py-3.5 px-4 text-xs max-w-[240px]">
+              <span class="font-bold text-purple-700 block">${s['Mata Pelajaran'] || '-'}</span>
+              <p class="text-slate-500 text-[11px] line-clamp-2 mt-0.5 leading-snug">${materi}</p>
+            </td>
+            <td class="py-3.5 px-4 text-xs font-extrabold text-slate-700 text-center">${s['Durasi (Sesi)']} Sesi</td>
+            <td class="py-3.5 px-4 text-xs font-extrabold text-slate-800 text-right whitespace-nowrap">
               Rp ${(Number(s['Total Honor (Rp)']) || 0).toLocaleString('id-ID')}
             </td>
             <td class="py-3.5 px-4 text-center">
-              <span class="px-2.5 py-1 text-xs font-bold rounded-full ${isLunas ? 'bg-emerald-100 text-emerald-800' : 'bg-purple-100 text-purple-800'}">
+              <span class="px-2.5 py-1 text-[11px] font-bold rounded-full ${isLunas ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'}">
                 ${s['Status Bayar']}
               </span>
             </td>
             <td class="py-3.5 px-4 text-center" onclick="event.stopPropagation();">
               <div class="flex items-center justify-center gap-1.5">
+                <button onclick="showDetailSesi('${s['ID Sesi']}')" title="Lihat Pop-up Detail Lengkap" class="p-1.5 rounded-lg bg-indigo-50 text-indigo-600 hover:bg-indigo-600 hover:text-white transition text-xs">
+                  <i class="fa-solid fa-eye"></i>
+                </button>
                 ${!isLunas ? `
-                  <button onclick="bayarSingleHonorById('${s['ID Sesi']}')" title="Bayar Honor Sesi Ini" class="p-1.5 rounded-lg bg-emerald-50 text-emerald-600 hover:bg-emerald-600 hover:text-white transition text-xs font-bold">
+                  <button onclick="bayarSingleHonorById('${s['ID Sesi']}')" title="Cairkan Honor Sesi Ini" class="p-1.5 rounded-lg bg-emerald-50 text-emerald-600 hover:bg-emerald-600 hover:text-white transition text-xs font-bold flex items-center gap-1">
                     <i class="fa-solid fa-hand-holding-dollar"></i> Bayar
                   </button>
                 ` : `
-                  <button onclick="previewKuitansiBySesiId('${s['ID Sesi']}')" title="Lihat Slip" class="p-1.5 rounded-lg bg-slate-100 text-slate-600 hover:bg-slate-700 hover:text-white transition text-xs">
+                  <button onclick="previewKuitansiBySesiId('${s['ID Sesi']}')" title="Cetak Slip Sesi" class="p-1.5 rounded-lg bg-slate-100 text-slate-600 hover:bg-slate-700 hover:text-white transition text-xs">
                     <i class="fa-solid fa-print"></i>
                   </button>
                 `}
@@ -2847,59 +3583,219 @@
       renderSesiTable();
     }
 
+    function resetFilterSesi() {
+      document.getElementById('filter-sesi-search').value = '';
+      document.getElementById('filter-sesi-tanggal').value = '';
+      document.getElementById('filter-sesi-tipe').value = '';
+      document.getElementById('filter-sesi-status').value = '';
+      setSesiDatePreset('all');
+    }
+
+    function showDetailSesi(sesiId) {
+      const s = APP_STATE.sesi.find(x => x['ID Sesi'] === sesiId);
+      if (!s) return;
+
+      const isLunas = s['Status Bayar'] === 'Lunas';
+      const jam = s['Waktu / Jam'] || '14:00 - 15:30 WIB';
+      const tipe = s['Tipe Sesi'] || 'Offline di Bimbel';
+      const materi = s['Materi Detail'] || s['Topik / Materi'] || s['Catatan'] || 'Latihan soal dan pemahaman konsep.';
+      const evaluasi = s['Evaluasi Siswa'] || s['Catatan'] || 'Siswa hadir tepat waktu dan menyimak penjelasan tentor dengan baik.';
+
+      document.getElementById('detail-sesi-mapel').innerText = s['Mata Pelajaran'] || 'Sesi Belajar';
+      document.getElementById('detail-sesi-id').innerText = s['ID Sesi'];
+      document.getElementById('detail-sesi-tentor').innerText = s['Nama Tentor'] || '-';
+      document.getElementById('detail-sesi-siswa').innerText = s['Kelas / Siswa'] || '-';
+      document.getElementById('detail-sesi-waktu').innerText = `${s['Tanggal']} • ${jam}`;
+      document.getElementById('detail-sesi-durasi').innerText = `${s['Durasi (Sesi)']} Sesi (${Number(s['Durasi (Sesi)']) * 90} Menit)`;
+      document.getElementById('detail-sesi-materi').innerText = materi;
+      document.getElementById('detail-sesi-evaluasi').innerText = evaluasi;
+      document.getElementById('detail-sesi-honor').innerText = 'Rp ' + (Number(s['Total Honor (Rp)']) || 0).toLocaleString('id-ID');
+      
+      const tglBayarEl = document.getElementById('detail-sesi-tgl-bayar');
+      if (tglBayarEl) {
+        tglBayarEl.innerText = isLunas ? `Telah dicairkan pada ${s['Tanggal Bayar'] || s['Tanggal']}` : 'Status: Siap dicairkan / Pending';
+      }
+
+      const statusBadge = document.getElementById('detail-sesi-status-badge');
+      if (statusBadge) {
+        statusBadge.className = isLunas ? 'px-2.5 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800' : 'px-2.5 py-1 rounded-full text-xs font-bold bg-amber-100 text-amber-800';
+        statusBadge.innerText = isLunas ? '✅ Lunas (Telah Dibayar)' : '⏳ Belum Dibayar (Pending)';
+      }
+
+      const tipeBadge = document.getElementById('detail-sesi-tipe-badge');
+      if (tipeBadge) {
+        tipeBadge.innerText = tipe;
+      }
+
+      // Actions
+      const actionsCont = document.getElementById('detail-sesi-actions');
+      if (actionsCont) {
+        actionsCont.innerHTML = `
+          ${!isLunas ? `
+            <button onclick="closeModal('modal-detail-sesi'); bayarSingleHonorById('${s['ID Sesi']}');" class="px-4 py-2 text-xs font-bold rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white shadow-md flex items-center justify-center gap-1.5">
+              <i class="fa-solid fa-hand-holding-dollar"></i> Cairkan Honor Ini
+            </button>
+          ` : `
+            <button onclick="closeModal('modal-detail-sesi'); previewKuitansiBySesiId('${s['ID Sesi']}');" class="px-4 py-2 text-xs font-bold rounded-xl bg-slate-800 hover:bg-slate-900 text-white shadow-md flex items-center justify-center gap-1.5">
+              <i class="fa-solid fa-print"></i> Cetak Slip Sesi
+            </button>
+          `}
+          <button onclick="closeModal('modal-detail-sesi')" class="px-4 py-2 text-xs font-semibold rounded-xl text-slate-600 bg-slate-100 hover:bg-slate-200">
+            Tutup
+          </button>
+        `;
+      }
+
+      openModal('modal-detail-sesi');
+    }
+
     // ==========================================
-    // RENDER KEUANGAN
+    // RENDER KEUANGAN (METODE HARIAN & BUKU KAS)
     // ==========================================
+    let currentKeuanganPreset = 'all';
+
+    function setKeuanganDatePreset(preset) {
+      currentKeuanganPreset = preset;
+      const todayStr = new Date().toISOString().split('T')[0];
+      const curMonthStr = todayStr.substring(0, 7);
+
+      const d = new Date();
+      d.setDate(d.getDate() - 1);
+      const yesterdayStr = d.toISOString().split('T')[0];
+
+      document.querySelectorAll('.keu-preset-btn').forEach(btn => {
+        btn.className = 'keu-preset-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-100 text-slate-600 hover:bg-slate-200 transition';
+      });
+
+      const activeBtn = document.getElementById(`btn-keu-preset-${preset}`);
+      if (activeBtn) {
+        activeBtn.className = 'keu-preset-btn px-3 py-1.5 rounded-lg text-xs font-bold bg-brand-50 text-brand-700 border border-brand-200 hover:bg-brand-100 transition';
+      }
+
+      const dateInput = document.getElementById('filter-keuangan-tanggal');
+      const label = document.getElementById('keu-filter-active-label');
+
+      if (preset === 'today') {
+        if (dateInput) dateInput.value = todayStr;
+        if (label) label.innerHTML = `Menampilkan data: <span class="font-bold text-brand-700">Hari Ini (${todayStr})</span>`;
+      } else if (preset === 'yesterday') {
+        if (dateInput) dateInput.value = yesterdayStr;
+        if (label) label.innerHTML = `Menampilkan data: <span class="font-bold text-brand-700">Kemarin (${yesterdayStr})</span>`;
+      } else if (preset === 'this_month') {
+        if (dateInput) dateInput.value = '';
+        if (label) label.innerHTML = `Menampilkan data: <span class="font-bold text-brand-700">Bulan Ini (${curMonthStr})</span>`;
+      } else if (preset === 'all') {
+        if (dateInput) dateInput.value = '';
+        if (label) label.innerHTML = `Menampilkan data: <span class="font-bold text-slate-700">Semua Riwayat</span>`;
+      }
+
+      applyFilterKeuangan();
+    }
+
     function renderKeuanganTable() {
       const search = (document.getElementById('filter-keuangan-search').value || '').toLowerCase();
       const filterTipe = document.getElementById('filter-keuangan-tipe').value;
       const filterKat = document.getElementById('filter-keuangan-kategori').value;
+      const filterTanggal = document.getElementById('filter-keuangan-tanggal').value;
+      const todayStr = new Date().toISOString().split('T')[0];
+      const curMonthStr = todayStr.substring(0, 7);
 
       let totalIn = 0;
       let totalOut = 0;
+      let countIn = 0;
+      let countOut = 0;
 
       const filtered = APP_STATE.keuangan.filter(k => {
-        const matchSearch = (k['Deskripsi'] || '').toLowerCase().includes(search) || (k['Referensi / Nama'] || '').toLowerCase().includes(search);
+        const tgl = (k['Tanggal'] || '');
+        const matchSearch = (k['Deskripsi'] || '').toLowerCase().includes(search) || 
+                            (k['Referensi / Nama'] || '').toLowerCase().includes(search) ||
+                            (k['ID Transaksi'] || '').toLowerCase().includes(search);
+        
+        let matchDate = true;
+        if (filterTanggal) {
+          matchDate = (tgl === filterTanggal);
+        } else if (currentKeuanganPreset === 'this_month') {
+          matchDate = tgl.startsWith(curMonthStr);
+        }
+
         const matchTipe = !filterTipe || k['Tipe'] === filterTipe;
         const matchKat = !filterKat || k['Kategori'] === filterKat;
         
         const nominal = Number(k['Jumlah (Rp)']) || 0;
-        if ((k['Tipe'] || '').toLowerCase() === 'pemasukan') totalIn += nominal;
-        else totalOut += nominal;
-
-        return matchSearch && matchTipe && matchKat;
+        if (matchSearch && matchDate && matchTipe && matchKat) {
+          if ((k['Tipe'] || '').toLowerCase() === 'pemasukan') {
+            totalIn += nominal;
+            countIn++;
+          } else {
+            totalOut += nominal;
+            countOut++;
+          }
+          return true;
+        }
+        return false;
       });
 
-      document.getElementById('keu-total-pemasukan').innerText = 'Rp ' + totalIn.toLocaleString('id-ID');
-      document.getElementById('keu-total-pengeluaran').innerText = 'Rp ' + totalOut.toLocaleString('id-ID');
-      document.getElementById('keu-saldo-bersih').innerText = 'Rp ' + (totalIn - totalOut).toLocaleString('id-ID');
+      const saldo = totalIn - totalOut;
+
+      // Update Financial Metric Cards
+      const pemEl = document.getElementById('keu-total-pemasukan');
+      const countPemEl = document.getElementById('keu-count-pemasukan');
+      const pengEl = document.getElementById('keu-total-pengeluaran');
+      const countPengEl = document.getElementById('keu-count-pengeluaran');
+      const saldoEl = document.getElementById('keu-saldo-bersih');
+      const statusSaldoEl = document.getElementById('keu-status-saldo');
+      const countTrxEl = document.getElementById('keu-total-trx-count');
+      const summaryDateEl = document.getElementById('keu-summary-date-text');
+
+      if (pemEl) pemEl.innerText = 'Rp ' + totalIn.toLocaleString('id-ID');
+      if (countPemEl) countPemEl.innerText = `${countIn} Transaksi Kas Masuk`;
+      if (pengEl) pengEl.innerText = 'Rp ' + totalOut.toLocaleString('id-ID');
+      if (countPengEl) countPengEl.innerText = `${countOut} Transaksi Pengeluaran`;
+      if (saldoEl) saldoEl.innerText = 'Rp ' + saldo.toLocaleString('id-ID');
+      if (statusSaldoEl) {
+        statusSaldoEl.innerText = saldo > 0 ? 'Surplus / Arus Kas Positif' : (saldo < 0 ? 'Defisit / Kas Negatif' : 'Kas Seimbang');
+      }
+      if (countTrxEl) countTrxEl.innerText = `${filtered.length} Transaksi`;
+      if (summaryDateEl) {
+        summaryDateEl.innerText = filterTanggal ? `Tanggal: ${filterTanggal}` : (currentKeuanganPreset === 'this_month' ? 'Periode Bulan Ini' : 'Semua Tanggal');
+      }
 
       const tbody = document.getElementById('keuangan-table-body');
       if (filtered.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="8" class="py-8 text-center text-slate-400">Tidak ada data transaksi yang cocok.</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="8" class="py-8 text-center text-slate-400">Tidak ada data transaksi yang cocok dengan filter tanggal/kriteria ini.</td></tr>';
         return;
       }
 
       tbody.innerHTML = filtered.map(k => {
         const isIn = (k['Tipe'] || '').toLowerCase() === 'pemasukan';
+        const jam = k['Waktu / Jam'] || '09:00 WIB';
+
         return `
           <tr class="hover:bg-slate-50 transition cursor-pointer group" onclick="if(!event.target.closest('button')) previewKuitansiByTrxId('${k['ID Transaksi']}');">
             <td class="py-3.5 px-4 font-mono text-xs text-slate-400 group-hover:text-brand-600 font-bold">${k['ID Transaksi']}</td>
-            <td class="py-3.5 px-4 text-xs font-semibold text-slate-600">${k['Tanggal']}</td>
+            <td class="py-3.5 px-4 text-xs font-semibold text-slate-700">
+              <span class="block text-slate-800 font-bold">${k['Tanggal']}</span>
+              <span class="text-[11px] text-slate-400 font-semibold flex items-center gap-1 mt-0.5">
+                <i class="fa-regular fa-clock text-[10px]"></i> ${jam}
+              </span>
+            </td>
             <td class="py-3.5 px-4">
               <span class="px-2.5 py-1 text-[11px] font-bold rounded-full ${isIn ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'}">
                 ${k['Tipe']}
               </span>
             </td>
-            <td class="py-3.5 px-4 text-xs font-medium text-slate-700">${k['Kategori'] || '-'}</td>
-            <td class="py-3.5 px-4 text-xs text-slate-800 font-semibold">${k['Deskripsi'] || '-'}</td>
-            <td class="py-3.5 px-4 text-xs text-slate-500">${k['Metode Pembayaran'] || '-'}</td>
-            <td class="py-3.5 px-4 text-xs font-extrabold text-right ${isIn ? 'text-emerald-600' : 'text-rose-600'}">
+            <td class="py-3.5 px-4 text-xs font-bold text-slate-700">${k['Kategori'] || '-'}</td>
+            <td class="py-3.5 px-4 text-xs text-slate-800 font-semibold max-w-[250px]">
+              <span class="block leading-snug">${k['Deskripsi'] || '-'}</span>
+              ${k['Referensi / Nama'] ? `<span class="text-[11px] text-slate-400 font-normal">Ref: ${k['Referensi / Nama']}</span>` : ''}
+            </td>
+            <td class="py-3.5 px-4 text-xs text-slate-500 font-medium">${k['Metode Pembayaran'] || '-'}</td>
+            <td class="py-3.5 px-4 text-xs font-extrabold text-right whitespace-nowrap ${isIn ? 'text-emerald-600' : 'text-rose-600'}">
               ${isIn ? '+' : '-'} Rp ${(Number(k['Jumlah (Rp)']) || 0).toLocaleString('id-ID')}
             </td>
             <td class="py-3.5 px-4 text-center" onclick="event.stopPropagation();">
               <div class="flex items-center justify-center gap-1.5">
-                <button onclick="previewKuitansiByTrxId('${k['ID Transaksi']}')" title="Cetak Kuitansi" class="p-1.5 rounded-lg bg-slate-100 text-slate-600 hover:bg-slate-700 hover:text-white transition text-xs">
+                <button onclick="previewKuitansiByTrxId('${k['ID Transaksi']}')" title="Cetak Kuitansi Resmi" class="p-1.5 rounded-lg bg-slate-100 text-slate-600 hover:bg-slate-700 hover:text-white transition text-xs">
                   <i class="fa-solid fa-print"></i>
                 </button>
                 <button onclick="confirmDeleteKeuangan('${k['ID Transaksi']}')" title="Hapus Transaksi" class="p-1.5 rounded-lg bg-rose-50 text-rose-600 hover:bg-rose-600 hover:text-white transition text-xs">
@@ -2918,9 +3814,84 @@
 
     function resetFilterKeuangan() {
       document.getElementById('filter-keuangan-search').value = '';
+      document.getElementById('filter-keuangan-tanggal').value = '';
       document.getElementById('filter-keuangan-tipe').value = '';
       document.getElementById('filter-keuangan-kategori').value = '';
-      renderKeuanganTable();
+      setKeuanganDatePreset('all');
+    }
+
+    // ==========================================
+    // REKAP LAPORAN HARIAN (PRINTABLE)
+    // ==========================================
+    function openModalRekapHarian(targetDate = null) {
+      const selectedDate = targetDate || document.getElementById('filter-keuangan-tanggal').value || new Date().toISOString().split('T')[0];
+      
+      const formattedDate = new Date(selectedDate).toLocaleDateString('id-ID', {
+        weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'
+      });
+
+      document.getElementById('rekap-tanggal-display').innerText = formattedDate;
+      const bimbelAlamat = APP_STATE.pengaturan.alamat || 'Jl. Pendidikan Mandiri No. 88, Kota Belajar';
+      document.getElementById('rekap-alamat-header').innerText = bimbelAlamat;
+
+      // Filter Transaksi Tanggal Tersebut
+      const trxHarian = APP_STATE.keuangan.filter(k => (k['Tanggal'] || '') === selectedDate);
+      let pemVal = 0, pengVal = 0;
+      trxHarian.forEach(k => {
+        const nom = Number(k['Jumlah (Rp)']) || 0;
+        if ((k['Tipe'] || '').toLowerCase() === 'pemasukan') pemVal += nom;
+        else pengVal += nom;
+      });
+
+      document.getElementById('rekap-pem-val').innerText = 'Rp ' + pemVal.toLocaleString('id-ID');
+      document.getElementById('rekap-peng-val').innerText = 'Rp ' + pengVal.toLocaleString('id-ID');
+      document.getElementById('rekap-saldo-val').innerText = 'Rp ' + (pemVal - pengVal).toLocaleString('id-ID');
+
+      // Populate Transaksi Table
+      const trxTbody = document.getElementById('rekap-transaksi-tbody');
+      if (trxHarian.length === 0) {
+        trxTbody.innerHTML = '<tr><td colspan="4" class="p-3 text-center text-slate-400">Tidak ada transaksi keuangan pada tanggal ini.</td></tr>';
+      } else {
+        trxTbody.innerHTML = trxHarian.map(k => {
+          const isIn = (k['Tipe'] || '').toLowerCase() === 'pemasukan';
+          return `
+            <tr>
+              <td class="p-2 font-mono text-[10px] text-slate-500">${k['Waktu / Jam'] || '09:00'} • ${k['ID Transaksi']}</td>
+              <td class="p-2 font-bold ${isIn ? 'text-emerald-700' : 'text-rose-700'}">${k['Tipe']} (${k['Kategori']})</td>
+              <td class="p-2">${k['Deskripsi']}</td>
+              <td class="p-2 text-right font-extrabold ${isIn ? 'text-emerald-700' : 'text-rose-700'}">
+                ${isIn ? '+' : '-'} Rp ${(Number(k['Jumlah (Rp)']) || 0).toLocaleString('id-ID')}
+              </td>
+            </tr>
+          `;
+        }).join('');
+      }
+
+      // Populate Sesi Table
+      const sesiHarian = APP_STATE.sesi.filter(s => (s['Tanggal'] || '') === selectedDate);
+      const sesiTbody = document.getElementById('rekap-sesi-tbody');
+      if (sesiHarian.length === 0) {
+        sesiTbody.innerHTML = '<tr><td colspan="4" class="p-3 text-center text-slate-400">Tidak ada sesi mengajar pada tanggal ini.</td></tr>';
+      } else {
+        sesiTbody.innerHTML = sesiHarian.map(s => `
+          <tr>
+            <td class="p-2">
+              <span class="font-bold text-slate-800 block">${s['Nama Tentor']}</span>
+              <span class="text-[10px] text-indigo-600">${s['Waktu / Jam'] || '14:00 - 15:30'} • ${s['Tipe Sesi'] || 'Offline'}</span>
+            </td>
+            <td class="p-2 font-medium">${s['Kelas / Siswa']}</td>
+            <td class="p-2">
+              <span class="font-bold text-purple-700 block">${s['Mata Pelajaran']}</span>
+              <span class="text-[10px] text-slate-500">${s['Materi Detail'] || s['Catatan'] || '-'}</span>
+            </td>
+            <td class="p-2 text-right font-extrabold text-slate-800">
+              Rp ${(Number(s['Total Honor (Rp)']) || 0).toLocaleString('id-ID')}
+            </td>
+          </tr>
+        `).join('');
+      }
+
+      openModal('modal-rekap-harian');
     }
 
     // ==========================================
@@ -3227,14 +4198,19 @@
     function handleSaveSesi(e) {
       e.preventDefault();
       const form = {
+        id: document.getElementById('sesi-id').value,
         id_tentor: document.getElementById('sesi-select-tentor').value,
         tanggal: document.getElementById('sesi-tanggal').value,
+        jam: document.getElementById('sesi-jam').value || '14:00 - 15:30 WIB',
+        durasi: document.getElementById('sesi-durasi').value,
+        tipe_sesi: document.getElementById('sesi-tipe').value,
         kelas_siswa: document.getElementById('sesi-kelas').value,
         mapel: document.getElementById('sesi-mapel').value,
-        durasi: document.getElementById('sesi-durasi').value,
+        materi_detail: document.getElementById('sesi-materi-detail').value,
+        evaluasi: document.getElementById('sesi-evaluasi').value,
         total_honor: document.getElementById('sesi-total-honor').value,
         status_bayar: document.getElementById('sesi-status-bayar').value,
-        catatan: document.getElementById('sesi-catatan').value
+        catatan: `[Jam: ${document.getElementById('sesi-jam').value || '14:00'}] [${document.getElementById('sesi-tipe').value}] Materi: ${document.getElementById('sesi-materi-detail').value}. Evaluasi: ${document.getElementById('sesi-evaluasi').value}`
       };
 
       Swal.fire({ title: 'Mencatat Sesi...', didOpen: () => Swal.showLoading() });
@@ -3242,6 +4218,7 @@
         if (res.success) {
           closeModal('modal-sesi-baru');
           document.getElementById('form-sesi').reset();
+          document.getElementById('sesi-id').value = '';
           Swal.fire({ icon: 'success', title: 'Berhasil', text: res.message, timer: 1500 });
           loadAllAppData();
         } else {
@@ -3328,6 +4305,9 @@
     // KEUANGAN
     function handleSaveTransaksi(e) {
       e.preventDefault();
+      const jamInput = document.getElementById('trx-jam').value;
+      const jamFormatted = jamInput ? `${jamInput} WIB` : `${new Date().toTimeString().substring(0, 5)} WIB`;
+      
       const form = {
         tipe: document.getElementById('trx-tipe').value,
         kategori: document.getElementById('trx-kategori').value,
@@ -3335,6 +4315,7 @@
         jumlah: document.getElementById('trx-jumlah').value,
         metode: document.getElementById('trx-metode').value,
         tanggal: document.getElementById('trx-tanggal').value,
+        jam: jamFormatted,
         referensi: document.getElementById('trx-referensi').value
       };
 
@@ -3708,21 +4689,28 @@
           resolve({ success: true, message: 'Tentor berhasil dihapus' });
         }
         else if (fn === 'saveSesi') {
-          const id = 'SES-' + String(mockDB.sesi.length + 1).padStart(3, '0');
+          const id = args.id || ('SES-' + String(mockDB.sesi.length + 1).padStart(3, '0'));
           const t = mockDB.tentor.find(x => x['ID Tentor'] === args.id_tentor);
-          mockDB.sesi.push({
+          const row = {
             'ID Sesi': id,
             'ID Tentor': args.id_tentor,
             'Nama Tentor': t ? t['Nama Lengkap'] : '',
             'Tanggal': args.tanggal,
+            'Waktu / Jam': args.jam || '14:00 - 15:30 WIB',
+            'Tipe Sesi': args.tipe_sesi || 'Offline di Bimbel',
             'Kelas / Siswa': args.kelas_siswa,
             'Mata Pelajaran': args.mapel,
+            'Materi Detail': args.materi_detail || '',
+            'Evaluasi Siswa': args.evaluasi || '',
             'Durasi (Sesi)': Number(args.durasi),
             'Total Honor (Rp)': Number(args.total_honor),
             'Status Bayar': args.status_bayar,
             'Tanggal Bayar': args.status_bayar === 'Lunas' ? args.tanggal : '',
             'Catatan': args.catatan || ''
-          });
+          };
+          const idx = mockDB.sesi.findIndex(s => s['ID Sesi'] === id);
+          if (idx >= 0) mockDB.sesi[idx] = row;
+          else mockDB.sesi.push(row);
           saveMock();
           resolve({ success: true, message: 'Sesi mengajar berhasil dicatat!', id });
         }
@@ -3733,13 +4721,14 @@
             const ses = mockDB.sesi.find(s => s['ID Sesi'] === sId);
             if (ses) {
               ses['Status Bayar'] = 'Lunas';
-              ses['Tanggal Bayar'] = '2026-08-23';
+              ses['Tanggal Bayar'] = '2026-08-24';
               total += Number(ses['Total Honor (Rp)']) || 0;
             }
           });
           mockDB.keuangan.push({
             'ID Transaksi': trxId,
-            'Tanggal': '2026-08-23',
+            'Tanggal': '2026-08-24',
+            'Waktu / Jam': `${new Date().toTimeString().substring(0, 5)} WIB`,
             'Tipe': 'Pengeluaran',
             'Kategori': 'Honor Tentor',
             'Deskripsi': `Pembayaran Honor: ${args.nama_tentor} (${args.sesi_ids.length} Sesi)`,
@@ -3749,7 +4738,7 @@
             'Dicatat Oleh': 'Admin'
           });
           saveMock();
-          resolve({ success: true, message: `Honor ${args.nama_tentor} berhasil dicairkan!`, trxId, tentorName: args.nama_tentor, totalBayar: total, sesiCount: args.sesi_ids.length, tanggal: '2026-08-23' });
+          resolve({ success: true, message: `Honor ${args.nama_tentor} berhasil dicairkan!`, trxId, tentorName: args.nama_tentor, totalBayar: total, sesiCount: args.sesi_ids.length, tanggal: '2026-08-24' });
         }
         else if (fn === 'deleteSesi') {
           mockDB.sesi = mockDB.sesi.filter(s => s['ID Sesi'] !== args);
@@ -3760,7 +4749,8 @@
           const id = 'TRX-' + String(mockDB.keuangan.length + 1).padStart(3, '0');
           mockDB.keuangan.push({
             'ID Transaksi': id,
-            'Tanggal': args.tanggal || '2026-08-23',
+            'Tanggal': args.tanggal || '2026-08-24',
+            'Waktu / Jam': args.jam || `${new Date().toTimeString().substring(0, 5)} WIB`,
             'Tipe': args.tipe,
             'Kategori': args.kategori,
             'Deskripsi': args.deskripsi,
@@ -3770,7 +4760,7 @@
             'Dicatat Oleh': 'Admin'
           });
           saveMock();
-          resolve({ success: true, message: 'Transaksi kas berhasil dicatat!', id });
+          resolve({ success: true, message: 'Transaksi kas harian berhasil dicatat!', id });
         }
         else if (fn === 'deleteTransaksi') {
           mockDB.keuangan = mockDB.keuangan.filter(k => k['ID Transaksi'] !== args);
@@ -3871,6 +4861,10 @@
     window.refreshCurrentTab = refreshCurrentTab;
     window.showDetailSiswa = showDetailSiswa;
     window.showDetailTentor = showDetailTentor;
+    window.showDetailSesi = showDetailSesi;
+    window.openModalRekapHarian = openModalRekapHarian;
+    window.setKeuanganDatePreset = setKeuanganDatePreset;
+    window.setSesiDatePreset = setSesiDatePreset;
     window.quickPaySPP = quickPaySPP;
     window.editSiswa = editSiswa;
     window.confirmDeleteSiswa = confirmDeleteSiswa;
@@ -3901,8 +4895,12 @@
     window.updateStrokeRadius = updateStrokeRadius;
     window.resetStrokeCustomizer = resetStrokeCustomizer;
     window.saveStrokeCustomizer = saveStrokeCustomizer;
+    window.selectLoginRole = selectLoginRole;
+    window.handleQuickLogin = handleQuickLogin;
+    window.handleLogout = handleLogout;
     window.applyFilterSiswa = applyFilterSiswa;
     window.applyFilterSesi = applyFilterSesi;
+    window.resetFilterSesi = resetFilterSesi;
     window.applyFilterKeuangan = applyFilterKeuangan;
     window.resetFilterKeuangan = resetFilterKeuangan;
   </script>
