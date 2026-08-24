@@ -336,30 +336,30 @@
   <div class="flex-1 flex flex-col min-w-0 overflow-hidden">
     
     <!-- TOP NAVIGATION BAR -->
-    <header class="h-20 bg-white border-b border-slate-200/80 px-4 sm:px-6 flex items-center justify-between gap-3 z-20 shrink-0">
-      <div class="flex items-center gap-3 sm:gap-4 min-w-0">
+    <header class="h-16 sm:h-20 bg-white border-b border-slate-200/80 px-3 sm:px-6 flex items-center justify-between gap-2 sm:gap-3 z-20 shrink-0">
+      <div class="flex items-center gap-2.5 sm:gap-4 min-w-0">
         <!-- Tombol Garis 3 (Hamburger Menu Button) - Tampil di Semua Layar (Desktop, Tablet, HP) -->
-        <button onclick="toggleSidebar()" title="Buka / Tutup Menu Navigasi (Garis 3)" class="p-2.5 rounded-xl bg-slate-100 hover:bg-indigo-50 text-slate-700 hover:text-brand-600 border border-slate-200 hover:border-brand-300 focus:outline-none transition group flex items-center gap-2 shadow-sm shrink-0">
+        <button onclick="toggleSidebar()" title="Buka / Tutup Menu Navigasi (Garis 3)" class="p-2 sm:p-2.5 rounded-xl bg-slate-100 hover:bg-indigo-50 text-slate-700 hover:text-brand-600 border border-slate-200 hover:border-brand-300 focus:outline-none transition group flex items-center gap-1.5 sm:gap-2 shadow-sm shrink-0">
           <svg class="w-5 h-5 stroke-svg text-slate-700 group-hover:text-brand-600 transition" viewBox="0 0 24 24" stroke="currentColor">
             <line x1="4" y1="6" x2="20" y2="6"></line>
             <line x1="4" y1="12" x2="20" y2="12"></line>
             <line x1="4" y1="18" x2="20" y2="18"></line>
           </svg>
-          <span class="text-xs font-bold hidden sm:inline text-slate-700 group-hover:text-brand-600">Menu</span>
+          <span class="text-xs font-bold hidden md:inline text-slate-700 group-hover:text-brand-600">Menu</span>
         </button>
         
         <div class="truncate">
-          <h2 id="page-title" class="text-lg sm:text-xl font-bold text-slate-800 tracking-tight truncate">Dashboard Overview</h2>
-          <p id="page-subtitle" class="text-xs text-slate-500 hidden sm:block truncate">Ringkasan operasional dan keuangan Grow Center</p>
+          <h2 id="page-title" class="text-base sm:text-xl font-bold text-slate-800 tracking-tight truncate">Dashboard Overview</h2>
+          <p id="page-subtitle" class="text-[11px] sm:text-xs text-slate-500 hidden sm:block truncate">Ringkasan operasional dan keuangan Grow Center</p>
         </div>
       </div>
 
       <!-- Quick Actions & Date -->
-      <div class="flex items-center gap-2 sm:gap-3 shrink-0">
+      <div class="flex items-center gap-1.5 sm:gap-3 shrink-0">
         <!-- Tombol Pop-up Menu Hub Utama -->
-        <button onclick="openModal('modal-popup-hub')" class="inline-flex items-center gap-2 px-3 sm:px-4 py-2 sm:py-2.5 bg-gradient-to-r from-brand-600 via-indigo-600 to-purple-600 hover:from-brand-700 hover:to-purple-700 text-white rounded-xl text-xs font-bold shadow-md shadow-brand-600/30 hover:scale-[1.02] active:scale-95 transition">
-          <i class="fa-solid fa-bolt text-amber-300 text-sm"></i>
-          <span>Menu Pop-up</span>
+        <button onclick="openModal('modal-popup-hub')" class="inline-flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-4 py-2 sm:py-2.5 bg-gradient-to-r from-brand-600 via-indigo-600 to-purple-600 hover:from-brand-700 hover:to-purple-700 text-white rounded-xl text-xs font-bold shadow-md shadow-brand-600/30 hover:scale-[1.02] active:scale-95 transition">
+          <i class="fa-solid fa-bolt text-amber-300 text-xs sm:text-sm"></i>
+          <span class="hidden sm:inline">Menu Pop-up</span>
         </button>
 
         <a id="link-google-sheet" href="#" target="_blank" title="Buka Database Google Sheets" class="hidden lg:inline-flex items-center gap-1.5 px-3 py-2 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 rounded-xl text-xs font-bold transition">
@@ -373,7 +373,7 @@
         </div>
 
         <button onclick="refreshCurrentTab()" title="Muat Ulang Data" class="p-2 sm:p-2.5 rounded-xl bg-slate-100 text-slate-700 hover:bg-brand-50 hover:text-brand-600 transition">
-          <i id="refresh-icon" class="fa-solid fa-arrows-rotate"></i>
+          <i id="refresh-icon" class="fa-solid fa-arrows-rotate text-xs sm:text-sm"></i>
         </button>
 
         <button onclick="openModal('modal-spp-cepat')" class="hidden md:inline-flex items-center gap-2 px-3.5 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-bold shadow-md shadow-emerald-600/20 transition">
@@ -397,93 +397,93 @@
       <section id="tab-dashboard" class="tab-content space-y-6">
         
         <!-- TOP KPI METRIC CARDS -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-3.5 sm:gap-4">
           
           <!-- Total Siswa Aktif -->
-          <div onclick="switchTab('siswa')" title="Klik untuk Buka Data Siswa" class="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-sm hover:shadow-lg hover:border-blue-300 hover:-translate-y-0.5 transition-all duration-200 cursor-pointer group">
+          <div onclick="switchTab('siswa')" title="Klik untuk Buka Data Siswa" class="bg-white rounded-2xl p-4 sm:p-5 border border-slate-200/80 shadow-sm hover:shadow-lg hover:border-blue-300 hover:-translate-y-0.5 transition-all duration-200 cursor-pointer group">
             <div class="flex items-center justify-between">
-              <span class="text-xs font-bold uppercase tracking-wider text-slate-400 group-hover:text-blue-600 transition">Siswa Aktif</span>
-              <div class="w-9 h-9 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center group-hover:bg-blue-600 group-hover:text-white transition">
-                <i class="fa-solid fa-user-graduate"></i>
+              <span class="text-[11px] sm:text-xs font-bold uppercase tracking-wider text-slate-400 group-hover:text-blue-600 transition truncate">Siswa Aktif</span>
+              <div class="w-9 h-9 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center group-hover:bg-blue-600 group-hover:text-white transition shrink-0">
+                <i class="fa-solid fa-user-graduate text-sm"></i>
               </div>
             </div>
-            <p id="dash-siswa-aktif" class="text-2xl font-extrabold text-slate-800 mt-2">5</p>
-            <div class="flex items-center gap-1.5 mt-2 text-xs font-medium text-blue-600">
+            <p id="dash-siswa-aktif" class="text-xl sm:text-2xl font-extrabold text-slate-800 mt-2 truncate">5</p>
+            <div class="flex items-center gap-1.5 mt-2 text-xs font-medium text-blue-600 truncate">
               <i class="fa-solid fa-users"></i>
               <span>Terdaftar Aktif</span>
             </div>
           </div>
 
           <!-- Total Tentor Aktif -->
-          <div onclick="switchTab('tentor')" title="Klik untuk Buka Data Tentor" class="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-sm hover:shadow-lg hover:border-indigo-300 hover:-translate-y-0.5 transition-all duration-200 cursor-pointer group">
+          <div onclick="switchTab('tentor')" title="Klik untuk Buka Data Tentor" class="bg-white rounded-2xl p-4 sm:p-5 border border-slate-200/80 shadow-sm hover:shadow-lg hover:border-indigo-300 hover:-translate-y-0.5 transition-all duration-200 cursor-pointer group">
             <div class="flex items-center justify-between">
-              <span class="text-xs font-bold uppercase tracking-wider text-slate-400 group-hover:text-indigo-600 transition">Tentor Aktif</span>
-              <div class="w-9 h-9 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center group-hover:bg-indigo-600 group-hover:text-white transition">
-                <i class="fa-solid fa-chalkboard-user"></i>
+              <span class="text-[11px] sm:text-xs font-bold uppercase tracking-wider text-slate-400 group-hover:text-indigo-600 transition truncate">Tentor Aktif</span>
+              <div class="w-9 h-9 rounded-xl bg-indigo-50 text-indigo-600 flex items-center justify-center group-hover:bg-indigo-600 group-hover:text-white transition shrink-0">
+                <i class="fa-solid fa-chalkboard-user text-sm"></i>
               </div>
             </div>
-            <p id="dash-tentor-aktif" class="text-2xl font-extrabold text-slate-800 mt-2">5</p>
-            <div class="flex items-center gap-1.5 mt-2 text-xs font-medium text-indigo-600">
+            <p id="dash-tentor-aktif" class="text-xl sm:text-2xl font-extrabold text-slate-800 mt-2 truncate">5</p>
+            <div class="flex items-center gap-1.5 mt-2 text-xs font-medium text-indigo-600 truncate">
               <i class="fa-solid fa-book-open"></i>
               <span>Pengajar Tersedia</span>
             </div>
           </div>
 
           <!-- Pemasukan Bulan Ini -->
-          <div onclick="switchTab('keuangan')" title="Klik untuk Buka Buku Kas Keuangan" class="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-sm hover:shadow-lg hover:border-emerald-300 hover:-translate-y-0.5 transition-all duration-200 cursor-pointer group">
+          <div onclick="switchTab('keuangan')" title="Klik untuk Buka Buku Kas Keuangan" class="bg-white rounded-2xl p-4 sm:p-5 border border-slate-200/80 shadow-sm hover:shadow-lg hover:border-emerald-300 hover:-translate-y-0.5 transition-all duration-200 cursor-pointer group">
             <div class="flex items-center justify-between">
-              <span class="text-xs font-bold uppercase tracking-wider text-slate-400 group-hover:text-emerald-600 transition">Pemasukan (Bln)</span>
-              <div class="w-9 h-9 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center group-hover:bg-emerald-600 group-hover:text-white transition">
-                <i class="fa-solid fa-arrow-down-left"></i>
+              <span class="text-[11px] sm:text-xs font-bold uppercase tracking-wider text-slate-400 group-hover:text-emerald-600 transition truncate">Pemasukan (Bln)</span>
+              <div class="w-9 h-9 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center group-hover:bg-emerald-600 group-hover:text-white transition shrink-0 shadow-sm shadow-emerald-500/10">
+                <i class="fa-solid fa-arrow-trend-up text-sm"></i>
               </div>
             </div>
-            <p id="dash-pemasukan" class="text-xl font-extrabold text-emerald-600 mt-2">Rp 1.000.000</p>
-            <div class="flex items-center gap-1.5 mt-2 text-xs font-medium text-emerald-600">
+            <p id="dash-pemasukan" class="text-lg sm:text-xl font-extrabold text-emerald-600 mt-2 truncate">Rp 1.000.000</p>
+            <div class="flex items-center gap-1.5 mt-2 text-xs font-medium text-emerald-600 truncate">
               <i class="fa-solid fa-circle-check"></i>
               <span>Kas Masuk</span>
             </div>
           </div>
 
           <!-- Pengeluaran Bulan Ini -->
-          <div onclick="switchTab('keuangan')" title="Klik untuk Buka Buku Kas Keuangan" class="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-sm hover:shadow-lg hover:border-rose-300 hover:-translate-y-0.5 transition-all duration-200 cursor-pointer group">
+          <div onclick="switchTab('keuangan')" title="Klik untuk Buka Buku Kas Keuangan" class="bg-white rounded-2xl p-4 sm:p-5 border border-slate-200/80 shadow-sm hover:shadow-lg hover:border-rose-300 hover:-translate-y-0.5 transition-all duration-200 cursor-pointer group">
             <div class="flex items-center justify-between">
-              <span class="text-xs font-bold uppercase tracking-wider text-slate-400 group-hover:text-rose-600 transition">Pengeluaran (Bln)</span>
-              <div class="w-9 h-9 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center group-hover:bg-rose-600 group-hover:text-white transition">
-                <i class="fa-solid fa-arrow-up-right"></i>
+              <span class="text-[11px] sm:text-xs font-bold uppercase tracking-wider text-slate-400 group-hover:text-rose-600 transition truncate">Pengeluaran (Bln)</span>
+              <div class="w-9 h-9 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center group-hover:bg-rose-600 group-hover:text-white transition shrink-0 shadow-sm shadow-rose-500/10">
+                <i class="fa-solid fa-arrow-trend-down text-sm"></i>
               </div>
             </div>
-            <p id="dash-pengeluaran" class="text-xl font-extrabold text-rose-600 mt-2">Rp 645.000</p>
-            <div class="flex items-center gap-1.5 mt-2 text-xs font-medium text-rose-600">
-              <i class="fa-solid fa-arrow-trend-down"></i>
+            <p id="dash-pengeluaran" class="text-lg sm:text-xl font-extrabold text-rose-600 mt-2 truncate">Rp 645.000</p>
+            <div class="flex items-center gap-1.5 mt-2 text-xs font-medium text-rose-600 truncate">
+              <i class="fa-solid fa-money-bill-transfer"></i>
               <span>Biaya & Honor</span>
             </div>
           </div>
 
           <!-- Tunggakan SPP -->
-          <div onclick="switchTab('notifikasi')" title="Klik untuk Kirim Tagihan SPP WhatsApp" class="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-sm hover:shadow-lg hover:border-amber-300 hover:-translate-y-0.5 transition-all duration-200 cursor-pointer group">
+          <div onclick="switchTab('notifikasi')" title="Klik untuk Kirim Tagihan SPP WhatsApp" class="bg-white rounded-2xl p-4 sm:p-5 border border-slate-200/80 shadow-sm hover:shadow-lg hover:border-amber-300 hover:-translate-y-0.5 transition-all duration-200 cursor-pointer group">
             <div class="flex items-center justify-between">
-              <span class="text-xs font-bold uppercase tracking-wider text-slate-400 group-hover:text-amber-600 transition">Tunggakan SPP</span>
-              <div class="w-9 h-9 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center group-hover:bg-amber-600 group-hover:text-white transition">
-                <i class="fa-solid fa-clock-rotate-left"></i>
+              <span class="text-[11px] sm:text-xs font-bold uppercase tracking-wider text-slate-400 group-hover:text-amber-600 transition truncate">Tunggakan SPP</span>
+              <div class="w-9 h-9 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center group-hover:bg-amber-600 group-hover:text-white transition shrink-0">
+                <i class="fa-solid fa-clock-rotate-left text-sm"></i>
               </div>
             </div>
-            <p id="dash-tunggakan" class="text-xl font-extrabold text-amber-600 mt-2">Rp 1.700.000</p>
-            <div class="flex items-center gap-1.5 mt-2 text-xs font-medium text-amber-600">
+            <p id="dash-tunggakan" class="text-lg sm:text-xl font-extrabold text-amber-600 mt-2 truncate">Rp 1.700.000</p>
+            <div class="flex items-center gap-1.5 mt-2 text-xs font-medium text-amber-600 truncate">
               <span id="dash-siswa-menunggak-count">3</span>
               <span>Siswa Belum Bayar</span>
             </div>
           </div>
 
           <!-- Honor Tentor Belum Dibayar -->
-          <div onclick="switchTab('pembayaran-tentor')" title="Klik untuk Bayar Honor Tentor" class="bg-white rounded-2xl p-5 border border-slate-200/80 shadow-sm hover:shadow-lg hover:border-purple-300 hover:-translate-y-0.5 transition-all duration-200 cursor-pointer group">
+          <div onclick="switchTab('pembayaran-tentor')" title="Klik untuk Bayar Honor Tentor" class="bg-white rounded-2xl p-4 sm:p-5 border border-slate-200/80 shadow-sm hover:shadow-lg hover:border-purple-300 hover:-translate-y-0.5 transition-all duration-200 cursor-pointer group">
             <div class="flex items-center justify-between">
-              <span class="text-xs font-bold uppercase tracking-wider text-slate-400 group-hover:text-purple-600 transition">Honor Tertunda</span>
-              <div class="w-9 h-9 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center group-hover:bg-purple-600 group-hover:text-white transition">
-                <i class="fa-solid fa-hand-holding-dollar"></i>
+              <span class="text-[11px] sm:text-xs font-bold uppercase tracking-wider text-slate-400 group-hover:text-purple-600 transition truncate">Honor Tertunda</span>
+              <div class="w-9 h-9 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center group-hover:bg-purple-600 group-hover:text-white transition shrink-0">
+                <i class="fa-solid fa-hand-holding-dollar text-sm"></i>
               </div>
             </div>
-            <p id="dash-honor-pending" class="text-xl font-extrabold text-purple-600 mt-2">Rp 440.000</p>
-            <div class="flex items-center gap-1.5 mt-2 text-xs font-medium text-purple-600">
+            <p id="dash-honor-pending" class="text-lg sm:text-xl font-extrabold text-purple-600 mt-2 truncate">Rp 440.000</p>
+            <div class="flex items-center gap-1.5 mt-2 text-xs font-medium text-purple-600 truncate">
               <span id="dash-sesi-pending-count">5</span>
               <span>Sesi Belum Cair</span>
             </div>
@@ -692,9 +692,9 @@
 
         <!-- Transactions Table -->
         <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden">
-          <div class="overflow-x-auto">
-            <table class="w-full text-left text-sm">
-              <thead class="bg-slate-50 text-slate-600 text-xs uppercase font-bold tracking-wider border-b border-slate-200">
+          <div class="overflow-x-auto custom-scrollbar w-full">
+            <table class="w-full min-w-[760px] text-left text-sm">
+              <thead class="bg-slate-50 text-slate-600 text-xs uppercase font-bold tracking-wider border-b border-slate-200 whitespace-nowrap">
                 <tr>
                   <th class="py-3.5 px-4">ID Transaksi</th>
                   <th class="py-3.5 px-4">Tanggal</th>
@@ -763,9 +763,9 @@
 
         <!-- Student Table -->
         <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden">
-          <div class="overflow-x-auto">
-            <table class="w-full text-left text-sm">
-              <thead class="bg-slate-50 text-slate-600 text-xs uppercase font-bold tracking-wider border-b border-slate-200">
+          <div class="overflow-x-auto custom-scrollbar w-full">
+            <table class="w-full min-w-[720px] text-left text-sm">
+              <thead class="bg-slate-50 text-slate-600 text-xs uppercase font-bold tracking-wider border-b border-slate-200 whitespace-nowrap">
                 <tr>
                   <th class="py-3.5 px-4">ID & Nama Siswa</th>
                   <th class="py-3.5 px-4">Kelas / Jenjang</th>
@@ -806,9 +806,9 @@
 
         <!-- Tutor Table -->
         <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden">
-          <div class="overflow-x-auto">
-            <table class="w-full text-left text-sm">
-              <thead class="bg-slate-50 text-slate-600 text-xs uppercase font-bold tracking-wider border-b border-slate-200">
+          <div class="overflow-x-auto custom-scrollbar w-full">
+            <table class="w-full min-w-[720px] text-left text-sm">
+              <thead class="bg-slate-50 text-slate-600 text-xs uppercase font-bold tracking-wider border-b border-slate-200 whitespace-nowrap">
                 <tr>
                   <th class="py-3.5 px-4">ID & Nama Tentor</th>
                   <th class="py-3.5 px-4">Mata Pelajaran</th>
@@ -874,9 +874,9 @@
 
         <!-- Sessions Table -->
         <div class="bg-white rounded-2xl border border-slate-200/80 shadow-sm overflow-hidden">
-          <div class="overflow-x-auto">
-            <table class="w-full text-left text-sm">
-              <thead class="bg-slate-50 text-slate-600 text-xs uppercase font-bold tracking-wider border-b border-slate-200">
+          <div class="overflow-x-auto custom-scrollbar w-full">
+            <table class="w-full min-w-[780px] text-left text-sm">
+              <thead class="bg-slate-50 text-slate-600 text-xs uppercase font-bold tracking-wider border-b border-slate-200 whitespace-nowrap">
                 <tr>
                   <th class="py-3.5 px-4">ID Sesi & Tanggal</th>
                   <th class="py-3.5 px-4">Nama Tentor</th>
