@@ -2280,6 +2280,15 @@
   <!-- FRONTEND LOGIC & SCRIPT CONTROLLER         -->
   <!-- ========================================== -->
   <script>
+    // =========================================================================
+    // KONFIGURASI ENDPOINT PUSAT (OPSIONAL TAPI DIREKOMENDASIKAN)
+    // Jika Anda ingin semua orang yang membuka link ini otomatis menggunakan
+    // database Google Apps Script yang sama tanpa perlu mengatur secara manual,
+    // masukkan URL Web App Google Apps Script Anda ke dalam tanda kutip di bawah ini.
+    // Contoh: const GLOBAL_GAS_ENDPOINT = "https://script.google.com/macros/s/AKfyc.../exec";
+    // =========================================================================
+    const GLOBAL_GAS_ENDPOINT = "https://script.google.com/macros/s/AKfycbwW93Sabo8aXwRTmBlTIUV2jhvB0QLm716IWwGJLmqluLaBgnab_2gIdl92qLFsFmrF7A/exec";
+
     // Data Cadangan Instan (Seed Data) agar UI langsung terisi tanpa menunggu request
     const DEFAULT_SEED_DATA = {
       siswa: [
@@ -2853,8 +2862,8 @@
           }
         } 
         // 2. Lingkungan Eksternal (GitHub Pages / Vercel dengan Endpoint Apps Script)
-        else if (localStorage.getItem('growcenter_gas_endpoint')) {
-          const endpoint = localStorage.getItem('growcenter_gas_endpoint');
+        else if ((typeof GLOBAL_GAS_ENDPOINT !== 'undefined' && GLOBAL_GAS_ENDPOINT) || localStorage.getItem('growcenter_gas_endpoint')) {
+          const endpoint = (typeof GLOBAL_GAS_ENDPOINT !== 'undefined' ? GLOBAL_GAS_ENDPOINT : null) || localStorage.getItem('growcenter_gas_endpoint');
           const payload = { action: functionName, data: args };
           fetch(endpoint, {
             method: 'POST',
