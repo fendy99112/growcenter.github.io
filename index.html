@@ -1283,11 +1283,23 @@
               <label class="block text-xs font-bold text-slate-700">Hubungkan ke ID / URL Spreadsheet Kustom (Opsional):</label>
               <div class="flex flex-col sm:flex-row gap-2">
                 <input type="text" id="input-custom-sheet-id" placeholder="Tempel URL atau ID Google Spreadsheet di sini..." class="flex-1 px-3.5 py-2 text-xs rounded-xl border border-slate-200 focus:ring-2 focus:ring-brand-500 focus:outline-none">
-                <button type="button" onclick="handleConnectCustomSheet()" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold transition">
-                  Hubungkan
+                <button type="button" onclick="handleConnectCustomSheet()" class="px-4 py-2 bg-slate-800 hover:bg-slate-900 text-white rounded-xl text-xs font-bold transition">
+                  Ubah ID DB
                 </button>
               </div>
               <p class="text-[11px] text-slate-400">Spreadsheet aktif: <span id="display-active-sheet-name" class="font-bold text-slate-700">Memuat...</span> (<span id="display-active-sheet-id" class="font-mono text-slate-500">...</span>)</p>
+            </div>
+
+            <!-- GAS Endpoint Form (For Vercel / External Hosting) -->
+            <div class="p-4 rounded-xl bg-indigo-50 border border-indigo-200 space-y-2">
+              <label class="block text-xs font-bold text-indigo-800 flex items-center gap-1.5"><i class="fa-solid fa-cloud-bolt"></i> Sinkronisasi Antar Perangkat (Vercel Endpoint):</label>
+              <div class="flex flex-col sm:flex-row gap-2">
+                <input type="text" id="input-gas-endpoint" placeholder="Tempel URL 'Web App' Apps Script di sini..." class="flex-1 px-3.5 py-2 text-xs rounded-xl border border-indigo-200 focus:ring-2 focus:ring-brand-500 focus:outline-none">
+                <button type="button" onclick="handleConnectGASEndpoint()" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-xl text-xs font-bold transition">
+                  Simpan Endpoint
+                </button>
+              </div>
+              <p class="text-[11px] text-indigo-600/80"><strong>Wajib diisi</strong> jika mengakses aplikasi dari link Vercel, agar data tersinkron antara HP dan Laptop. Jika kosong, sistem hanya menggunakan memori lokal perangkat masing-masing.</p>
             </div>
           </div>
 
@@ -2956,6 +2968,35 @@
       });
     }
 
+    function handleConnectGASEndpoint() {
+      const input = document.getElementById('input-gas-endpoint');
+      if (!input) return;
+      const url = input.value.trim();
+      if (url) {
+        localStorage.setItem('growcenter_gas_endpoint', url);
+        Swal.fire({
+          icon: 'success',
+          title: 'Endpoint Tersimpan',
+          text: 'Aplikasi sekarang akan menyinkronkan data lintas perangkat dengan server pusat. Memuat ulang sistem...',
+          timer: 2000,
+          showConfirmButton: false
+        }).then(() => {
+          window.location.reload();
+        });
+      } else {
+        localStorage.removeItem('growcenter_gas_endpoint');
+        Swal.fire({
+          icon: 'info',
+          title: 'Endpoint Dihapus',
+          text: 'Aplikasi kembali menggunakan mode memori lokal perangkat (Offline).',
+          timer: 2000,
+          showConfirmButton: false
+        }).then(() => {
+          window.location.reload();
+        });
+      }
+    }
+
     // ==========================================
     // POP-UP DETAIL MODALS CONTROLLER
     // ==========================================
@@ -4073,6 +4114,11 @@
       if (c.alamat) document.getElementById('conf-alamat').value = c.alamat;
       if (c.template_tagihan_wa) document.getElementById('conf-template-tagihan').value = c.template_tagihan_wa;
       if (c.template_honor_wa) document.getElementById('conf-template-honor').value = c.template_honor_wa;
+
+      const endpointInput = document.getElementById('input-gas-endpoint');
+      if (endpointInput) {
+        endpointInput.value = localStorage.getItem('growcenter_gas_endpoint') || '';
+      }
     }
 
     function autoFillSPPAmount() {
