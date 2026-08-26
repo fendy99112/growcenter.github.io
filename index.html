@@ -476,7 +476,7 @@
     </header>
 
     <!-- TAB CONTENTS (SCROLLABLE) -->
-    <main class="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8 custom-scrollbar">
+    <main class="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8 pb-32 sm:pb-32 lg:pb-32 custom-scrollbar relative">
       
       <!-- ================================================================= -->
       <!-- TAB 1: DASHBOARD                                                  -->
@@ -1298,13 +1298,13 @@
     </main>
   </div>
 
-  <!-- FLOATING POP-UP HUB BUTTON (FAB) -->
-  <button onclick="openModal('modal-popup-hub')" title="Buka Menu Pop-up Cepat" class="fixed bottom-6 right-6 z-40 w-14 h-14 rounded-2xl bg-gradient-to-tr from-brand-600 via-indigo-600 to-purple-600 text-white shadow-xl shadow-brand-600/40 hover:scale-110 active:scale-95 flex items-center justify-center transition-all duration-200 group">
-    <i class="fa-solid fa-bolt text-2xl text-amber-300 group-hover:rotate-12 transition"></i>
-    <span class="absolute -top-10 right-0 bg-slate-900 text-white text-[11px] font-bold px-2.5 py-1 rounded-lg shadow-lg opacity-0 group-hover:opacity-100 transition whitespace-nowrap pointer-events-none">
-      Menu Cepat (Pop-up)
-    </span>
-  </button>
+  <!-- FLOATING POP-UP HUB BUTTON (FAB) - DRAGGABLE -->
+  <div id="draggable-fab" title="Menu Cepat (Bisa Digeser)" class="fixed bottom-6 right-6 z-40 w-14 h-14 rounded-2xl bg-gradient-to-tr from-brand-600 via-indigo-600 to-purple-600 text-white shadow-xl shadow-brand-600/40 hover:scale-105 active:scale-95 flex items-center justify-center transition-transform duration-100 cursor-move" style="touch-action: none;">
+    <i class="fa-solid fa-bolt text-2xl text-amber-300 pointer-events-none"></i>
+    <div class="absolute -top-1.5 -right-1.5 w-5 h-5 bg-white rounded-full shadow border border-slate-200 text-slate-400 flex items-center justify-center pointer-events-none">
+      <i class="fa-solid fa-up-down-left-right text-[9px]"></i>
+    </div>
+  </div>
 
   <!-- ================================================================= -->
   <!-- MODALS                                                            -->
@@ -2364,11 +2364,11 @@
 
     // State Store dengan Data Langsung Terisi
     let APP_STATE = {
-      dashboard: calculateInitialDashboardStats(DEFAULT_SEED_DATA),
-      siswa: [...DEFAULT_SEED_DATA.siswa],
-      tentor: [...DEFAULT_SEED_DATA.tentor],
-      sesi: [...DEFAULT_SEED_DATA.sesi],
-      keuangan: [...DEFAULT_SEED_DATA.keuangan],
+      dashboard: calculateInitialDashboardStats({ siswa: [], tentor: [], sesi: [], keuangan: [] }),
+      siswa: [],
+      tentor: [],
+      sesi: [],
+      keuangan: [],
       pengaturan: { ...DEFAULT_SEED_DATA.pengaturan },
       charts: {
         cashflow: null,
@@ -2487,6 +2487,82 @@
         toggleSidebar(false);
       }
     });
+
+    // ==========================================
+    // DRAGGABLE FAB LOGIC
+    // ==========================================
+    const fab = document.getElementById('draggable-fab');
+    if (fab) {
+      let isDraggingFab = false;
+      let hasDragged = false;
+      let fabStartX, fabStartY, fabInitialX, fabInitialY;
+
+      const dragStart = (e) => {
+        isDraggingFab = false;
+        hasDragged = false;
+        if (e.type === 'touchstart') {
+          fabStartX = e.touches[0].clientX;
+          fabStartY = e.touches[0].clientY;
+        } else {
+          fabStartX = e.clientX;
+          fabStartY = e.clientY;
+          e.preventDefault();
+        }
+        
+        const rect = fab.getBoundingClientRect();
+        fabInitialX = rect.left;
+        fabInitialY = rect.top;
+
+        document.addEventListener('mousemove', drag);
+        document.addEventListener('touchmove', drag, {passive: false});
+        document.addEventListener('mouseup', dragEnd);
+        document.addEventListener('touchend', dragEnd);
+      };
+
+      const drag = (e) => {
+        let currentX, currentY;
+        if (e.type === 'touchmove') {
+          currentX = e.touches[0].clientX;
+          currentY = e.touches[0].clientY;
+        } else {
+          currentX = e.clientX;
+          currentY = e.clientY;
+        }
+
+        const diffX = currentX - fabStartX;
+        const diffY = currentY - fabStartY;
+
+        if (Math.abs(diffX) > 5 || Math.abs(diffY) > 5) {
+          isDraggingFab = true;
+          hasDragged = true;
+          
+          let newX = fabInitialX + diffX;
+          let newY = fabInitialY + diffY;
+
+          newX = Math.max(0, Math.min(newX, window.innerWidth - fab.offsetWidth));
+          newY = Math.max(0, Math.min(newY, window.innerHeight - fab.offsetHeight));
+
+          fab.style.left = newX + 'px';
+          fab.style.top = newY + 'px';
+          fab.style.right = 'auto';
+          fab.style.bottom = 'auto';
+        }
+      };
+
+      const dragEnd = (e) => {
+        document.removeEventListener('mousemove', drag);
+        document.removeEventListener('touchmove', drag);
+        document.removeEventListener('mouseup', dragEnd);
+        document.removeEventListener('touchend', dragEnd);
+
+        if (!hasDragged) {
+          openModal('modal-popup-hub');
+        }
+      };
+
+      fab.addEventListener('mousedown', dragStart);
+      fab.addEventListener('touchstart', dragStart, {passive: false});
+    }
 
     // ==========================================
     // STROKE CUSTOMIZER (LIVE EDITABLE STROKE ENGINE)
@@ -2975,15 +3051,24 @@
       document.getElementById('dash-menunggak-text').innerText = (d.siswaMenunggak || 0) + ' Siswa';
 
       // Badges in sidebar
-      if (d.siswaMenunggak > 0) {
-        const b = document.getElementById('badge-siswa-menunggak');
-        b.innerText = d.siswaMenunggak;
-        b.classList.remove('hidden');
+      const bSiswa = document.getElementById('badge-siswa-menunggak');
+      if (bSiswa) {
+        if (d.siswaMenunggak > 0) {
+          bSiswa.innerText = d.siswaMenunggak;
+          bSiswa.classList.remove('hidden');
+        } else {
+          bSiswa.classList.add('hidden');
+        }
       }
-      if (d.sesiBelumDibayarCount > 0) {
-        const b = document.getElementById('badge-honor-pending');
-        b.innerText = d.sesiBelumDibayarCount;
-        b.classList.remove('hidden');
+      
+      const bHonor = document.getElementById('badge-honor-pending');
+      if (bHonor) {
+        if (d.sesiBelumDibayarCount > 0) {
+          bHonor.innerText = d.sesiBelumDibayarCount;
+          bHonor.classList.remove('hidden');
+        } else {
+          bHonor.classList.add('hidden');
+        }
       }
 
       // Recent Transactions
@@ -4516,7 +4601,7 @@
       const MOCK_STORAGE_KEY = 'GROW_CENTER_MOCK_DB';
       let mockDB = JSON.parse(localStorage.getItem(MOCK_STORAGE_KEY) || 'null');
       
-      if (!mockDB || !mockDB.siswa || mockDB.siswa.length < 5 || !mockDB.tentor || mockDB.tentor.length < 5) {
+      if (!mockDB || typeof mockDB !== 'object' || !mockDB.siswa || !mockDB.tentor || !mockDB.sesi || !mockDB.keuangan) {
         mockDB = {
           siswa: [
             { 'ID Siswa': 'SIS-001', 'Nama Lengkap': 'Ananda Pratama', 'Kelas / Jenjang': '12 SMA - IPA', 'Program / Paket': 'Reguler Intensif UTBK SNBT', 'No WA Siswa': '081234567890', 'Nama Orang Tua': 'Bpk. Bambang', 'No WA Ortu': '081298765432', 'Nominal SPP': 450000, 'Status SPP Bulan Ini': 'Lunas', 'Tanggal Daftar': '2026-01-10', 'Status': 'Aktif' },
